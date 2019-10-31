@@ -1,19 +1,23 @@
 package org.indev.decyphergame.models;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
-@Table
+@Table(name = "Player")
 public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @OneToMany(mappedBy = "player")
+    private Set<Result> results;
+
+    @Column(unique = true, nullable = false)
+    private String nickName;
+
     public Player() {
     }
-
-    @Column(unique = true)
-    private String nickName;
 
     public int getId() {
         return id;

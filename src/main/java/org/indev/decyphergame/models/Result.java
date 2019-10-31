@@ -3,18 +3,18 @@ package org.indev.decyphergame.models;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name = "Result")
 public class Result {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @ManyToOne
+    @JoinColumn(name = "player_id")
     private Player player;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @ManyToOne
+    @JoinColumn(name = "question_id")
     private Question question;
 
     @Column
