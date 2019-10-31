@@ -6,7 +6,6 @@
     <persistence-unit name="postgres">
         <class>org.indev.decyphergame.models.Player</class>
         <class>org.indev.decyphergame.models.Question</class>
-        <class>org.indev.decyphergame.models.Result</class>
 
         <properties>
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
