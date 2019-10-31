@@ -2,7 +2,7 @@ package org.indev.decyphergame.dao.api;
 
 import org.indev.decyphergame.models.Player;
 
-public interface UserDAO {
+public interface PlayerDAO {
     Player findById(int id);
     Player findByNickName(String nickName);
 
