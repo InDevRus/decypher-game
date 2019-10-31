@@ -5,8 +5,5 @@
 <hibernate-configuration>
     <session-factory>
 
-
-        <!-- DB schema will be updated if needed -->
-        <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
     </session-factory>
 </hibernate-configuration>
