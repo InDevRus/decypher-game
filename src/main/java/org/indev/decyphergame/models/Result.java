@@ -1,27 +1,25 @@
-package models;
+package org.indev.decyphergame.models;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "results")
+@Table
 public class Result {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "player_id")
+    @JoinColumn(name = "id")
     private Player player;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "question_id")
+    @JoinColumn(name = "id")
     private Question question;
 
-    @Column(name = "state")
+    @Column
+    @Enumerated(EnumType.STRING)
     private State state;
-
-    public Result() {
-    }
 
     public int getId() {
         return id;
@@ -49,12 +47,5 @@ public class Result {
 
     public void setState(State state) {
         this.state = state;
-    }
-
-    @Override
-    public String toString() {
-        return "models.Result{" +
-                "id=" + id +
-                ", state=" + state + '}';
     }
 }

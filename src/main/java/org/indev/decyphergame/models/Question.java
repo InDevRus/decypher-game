@@ -1,14 +1,15 @@
-package models;
+package org.indev.decyphergame.models;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name="questions")
+@Table
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name="word")
+
+    @Column
     private String word;
 
     public Question() {
@@ -28,12 +29,5 @@ public class Question {
 
     public void setWord(String word) {
         this.word = word;
-    }
-
-    @Override
-    public String toString() {
-        return "models.Question{" +
-                "id=" + id +
-                ", word='" + word + "'}";
     }
 }

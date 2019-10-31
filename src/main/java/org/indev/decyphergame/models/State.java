@@ -1,4 +1,4 @@
-package models;
+package org.indev.decyphergame.models;
 
 public enum State {
     Success,

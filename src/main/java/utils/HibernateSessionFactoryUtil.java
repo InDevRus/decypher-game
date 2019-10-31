@@ -1,8 +1,8 @@
 package utils;
 
-import models.Player;
-import models.Question;
-import models.Result;
+import org.indev.decyphergame.models.Player;
+import org.indev.decyphergame.models.Question;
+import org.indev.decyphergame.models.Result;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;

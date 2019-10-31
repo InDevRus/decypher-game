@@ -1,12 +1,12 @@
-package dao;
+package org.indev.decyphergame.dao;
 
-import models.Player;
+import org.indev.decyphergame.dao.api.UserDAO;
+import org.indev.decyphergame.models.Player;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import utils.HibernateSessionFactoryUtil;
-import java.util.List;
 
-public class UserDAO {
+public class UserDAOImplementation implements UserDAO {
     // В туториале написано, что по хорошему надо создать интерфейс UserDAO,
     // а это должнл быть его имплементацией UserDAOImpl
 
@@ -14,7 +14,14 @@ public class UserDAO {
         return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Player.class, id);
     }
 
-    public void Save(Player player) {
+    public Player findByNickName(String nickName) {
+        var session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        var query = session.createQuery("select p from Player as p where p.nickName = :nickName", Player.class);
+        query.setParameter("nickName", nickName);
+        return query.getSingleResult();
+    }
+
+    public void save(Player player) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction txl = session.beginTransaction();
         session.save(player);
@@ -22,7 +29,7 @@ public class UserDAO {
         session.close();
     }
 
-    public void Update(Player player) {
+    public void update(Player player) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction txl = session.beginTransaction();
         session.update(player);
@@ -30,7 +37,7 @@ public class UserDAO {
         session.close();
     }
 
-    public void Delete(Player player) {
+    public void delete(Player player) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction txl = session.beginTransaction();
         session.delete(player);
