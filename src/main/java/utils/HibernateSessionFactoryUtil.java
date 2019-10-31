@@ -2,11 +2,11 @@ package utils;
 
 import org.indev.decyphergame.models.Player;
 import org.indev.decyphergame.models.Question;
-import org.indev.decyphergame.models.Result;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
+@Deprecated
 public class HibernateSessionFactoryUtil {
     private static SessionFactory sessionFactory;
 
@@ -18,7 +18,7 @@ public class HibernateSessionFactoryUtil {
                 Configuration configuration = new Configuration().configure();
                 configuration.addAnnotatedClass(Player.class);
                 configuration.addAnnotatedClass(Question.class);
-                configuration.addAnnotatedClass(Result.class);
+                //configuration.addAnnotatedClass(Result.class);
                 StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
                 sessionFactory = configuration.buildSessionFactory(builder.build());
 
