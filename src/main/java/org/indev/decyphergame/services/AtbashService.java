@@ -9,8 +9,12 @@ import java.util.Optional;
 
 @Service
 public class AtbashService {
+    private final ResultDAO resultDAO;
+
     @Autowired
-    private ResultDAO resultDAO;
+    public AtbashService(ResultDAO resultDAO) {
+        this.resultDAO = resultDAO;
+    }
 
     public Optional<Atbash> getRandomQuestion(String playerNickName) {
         var question = resultDAO.findUnansweredQuestion(playerNickName);
