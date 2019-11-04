@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/play")
 public class GameController {
+    private final AtbashService atbashService;
+
     @Autowired
-    AtbashService atbashService;
+    public GameController(AtbashService atbashService) {
+        this.atbashService = atbashService;
+    }
 
     @GetMapping("/dialPad")
     public void dialPad() {
