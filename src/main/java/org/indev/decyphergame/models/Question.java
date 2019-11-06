@@ -1,6 +1,9 @@
 package org.indev.decyphergame.models;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -13,8 +16,18 @@ public class Question {
     @Column(name = "word", unique = true)
     private String word;
 
-    @Column
+    @Column(nullable = false)
     private String hint;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date createdAt;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date updatedAt;
 
     @OneToMany(mappedBy = "question")
     private Set<Result> results;

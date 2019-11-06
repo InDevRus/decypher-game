@@ -29,7 +29,7 @@ public class IndexController {
         if (!Objects.isNull(nickName)) {
             var player = playerDAO.findByNickName(nickName);
             player.ifPresentOrElse(
-                    found -> model.addAttribute("playerName", nickName),
+                    found -> model.addAttribute("playerName", found.getNickName()),
                     () -> model.addAttribute("wrongNickName", true)
             );
         }
