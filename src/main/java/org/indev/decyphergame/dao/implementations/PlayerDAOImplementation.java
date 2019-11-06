@@ -2,12 +2,12 @@ package org.indev.decyphergame.dao.implementations;
 
 import org.indev.decyphergame.dao.api.PlayerDAO;
 import org.indev.decyphergame.models.Player;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-@Component
+@Repository
 public class PlayerDAOImplementation implements PlayerDAO {
     @PersistenceContext
     private EntityManager entityManager;

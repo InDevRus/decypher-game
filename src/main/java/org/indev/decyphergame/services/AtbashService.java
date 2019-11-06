@@ -10,14 +10,16 @@ import java.util.Optional;
 @Service
 public class AtbashService {
     private final ResultDAO resultDAO;
+    private final Atbash atbash;
 
     @Autowired
-    public AtbashService(ResultDAO resultDAO) {
+    public AtbashService(ResultDAO resultDAO, Atbash atbash) {
         this.resultDAO = resultDAO;
+        this.atbash = atbash;
     }
 
-    public Optional<Atbash> getRandomQuestion(String playerNickName) {
-        var question = resultDAO.findUnansweredQuestion(playerNickName);
-        return Optional.ofNullable(question).map(Atbash::encrypt);
+    public Optional<EncryptedQuestion> getRandomQuestion(String playerNickName) {
+        return resultDAO.findUnansweredQuestion(playerNickName)
+                .map(question -> new EncryptedQuestion(question, atbash.encrypt(question)));
     }
 }

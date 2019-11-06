@@ -2,42 +2,40 @@ package org.indev.decyphergame.logic.cyphers;
 
 import org.indev.decyphergame.logic.Alphabet;
 import org.indev.decyphergame.models.Question;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 
 import java.util.Random;
 import java.util.function.IntUnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+//TODO: Сделать интерфейс для шифровщика,
+// использовать при @Autowired только интерфейс
+// для однозначности использовать @Qualifier
+@Configuration
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class Atbash {
-    private Question question;
-    private String cyphered;
+    private IntUnaryOperator letterMapper;
 
-    private Atbash() {
+    @Bean
+    public Atbash create() {
+        var lettersCount = Alphabet.letters.length();
+        var encrypting = new Atbash();
+        final var offset = new Random().nextInt(lettersCount);
+        encrypting.letterMapper = original -> (offset - original) % lettersCount;
+        return encrypting;
     }
 
-    public static Atbash encrypt(Question question) {
-        var lettersCount = Alphabet.letters.length();
-        var cypher = new Atbash();
-        cypher.question = question;
-        final var offset = new Random().nextInt(lettersCount);
-        final IntUnaryOperator mapper = original -> (offset - original) % lettersCount;
-        var word = question.getWord();
-
-        cypher.cyphered = IntStream.range(0, word.length())
-                .map(word::charAt)
+    public String encrypt(Question question) {
+        return IntStream.range(0, question.getWord().length())
+                .map(question.getWord()::charAt)
                 .map(Alphabet.letters::indexOf)
-                .map(mapper)
+                .map(this.letterMapper)
                 .boxed()
                 .map(position -> Alphabet.letters.charAt(position) + "")
                 .collect(Collectors.joining());
-        return cypher;
-    }
-
-    public Question getQuestion() {
-        return question;
-    }
-
-    public String getCyphered() {
-        return cyphered;
     }
 }
