@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Optional;
 
 @Component
 public class PlayerDAOImplementation implements PlayerDAO {
@@ -16,11 +17,12 @@ public class PlayerDAOImplementation implements PlayerDAO {
         return entityManager.find(Player.class, id);
     }
 
-    public Player findByNickName(String nickName) {
+    public Optional<Player> findByNickName(String nickName) {
         return entityManager
                 .createQuery("select p from Player as p where p.nickName = :nickName", Player.class)
                 .setParameter("nickName", nickName)
-                .getSingleResult();
+                .getResultStream()
+                .findAny();
     }
 
     public void save(Player player) {

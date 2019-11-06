@@ -7,7 +7,7 @@ import java.util.Set;
 @Table(name = "Question")
 public class Question {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private int id;
 
     @Column(name = "word", unique = true)

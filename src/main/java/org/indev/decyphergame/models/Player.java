@@ -7,14 +7,14 @@ import java.util.Set;
 @Table(name = "Player")
 public class Player {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private int id;
-
-    @OneToMany(mappedBy = "player")
-    private Set<Result> results;
 
     @Column(unique = true, nullable = false)
     private String nickName;
+
+    @OneToMany(mappedBy = "player")
+    private Set<Result> results;
 
     public Player() {
     }
