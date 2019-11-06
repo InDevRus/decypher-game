@@ -25,9 +25,9 @@ public class GameController {
 
     @GetMapping("/atbash")
     public String atbash(@RequestParam(name = "playerName") String playerName, Model model) {
-        var cypher = atbashService.getRandomQuestion(playerName);
-        if (cypher.isPresent()) {
-            model.addAttribute("cypher", cypher.get());
+        var encrypted = atbashService.getRandomQuestion(playerName);
+        if (encrypted.isPresent()) {
+            model.addAttribute("encrypted", encrypted.get());
             return "game";
         }
         return "noQuestion";

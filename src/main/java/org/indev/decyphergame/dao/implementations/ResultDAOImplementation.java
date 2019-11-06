@@ -3,12 +3,13 @@ package org.indev.decyphergame.dao.implementations;
 import org.indev.decyphergame.dao.api.ResultDAO;
 import org.indev.decyphergame.models.Player;
 import org.indev.decyphergame.models.Question;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Optional;
 
-@Component
+@Repository
 public class ResultDAOImplementation implements ResultDAO {
     @PersistenceContext
     private EntityManager entityManager;
@@ -24,7 +25,7 @@ public class ResultDAOImplementation implements ResultDAO {
     }
 
     @Override
-    public Question findUnansweredQuestion(int playerId) {
+    public Optional<Question> findUnansweredQuestion(int playerId) {
         var questionsCount = countUnansweredQuestions(playerId);
 
         return entityManager.createQuery("select question from Question question " +
@@ -35,12 +36,11 @@ public class ResultDAOImplementation implements ResultDAO {
                 .setFirstResult(questionsCount)
                 .setMaxResults(1)
                 .getResultStream()
-                .findFirst()
-                .orElse(null);
+                .findAny();
     }
 
     @Override
-    public Question findUnansweredQuestion(String playerNickName) {
+    public Optional<Question> findUnansweredQuestion(String playerNickName) {
         var playerId = entityManager.createQuery("select player from Player player " +
                 "where player.nickName = :playerNickName", Player.class)
                 .setParameter("playerNickName", playerNickName)

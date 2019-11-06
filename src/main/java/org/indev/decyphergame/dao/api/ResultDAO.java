@@ -1,14 +1,13 @@
 package org.indev.decyphergame.dao.api;
 
 import org.indev.decyphergame.models.Question;
-import org.springframework.lang.Nullable;
+
+import java.util.Optional;
 
 public interface ResultDAO {
     Integer countUnansweredQuestions(int playerId);
 
-    @Nullable
-    Question findUnansweredQuestion(int playerId);
+    Optional<Question> findUnansweredQuestion(int playerId);
 
-    @Nullable
-    Question findUnansweredQuestion(String playerNickName);
+    Optional<Question> findUnansweredQuestion(String playerNickName);
 }
