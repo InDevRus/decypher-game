@@ -4,9 +4,12 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-
-
-        <!-- DB schema will be updated if needed -->
-        <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://manny.db.elephantsql.com:5432/jxyjekgk</property>
+        <property name="hibernate.connection.username">jxyjekgk</property>
+        <property name="hibernate.connection.password">pn6_2qsQFjNKvxGMxHgmb8j_6gWv9St7</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
     </session-factory>
 </hibernate-configuration>
