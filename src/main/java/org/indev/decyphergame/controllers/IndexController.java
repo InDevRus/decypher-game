@@ -22,9 +22,11 @@ public class IndexController {
     }
 
     @GetMapping("/")
-    public ModelAndView index(@RequestParam(name = "nickName", required = false) String nickName, @RequestBody(required = false) Body body, ModelMap model) {
+    public ModelAndView index(@RequestParam(name = "nickName", required = false) String nickName,
+                              @RequestBody(required = false) Body body,
+                              ModelMap model) {
         if (!Objects.isNull(body)) {
-            return new ModelAndView(MessageFormat.format("forward:/?nickName={0}", nickName), model);
+            return new ModelAndView(MessageFormat.format("forward:/?nickName={0}", body.playerName), model);
         }
         if (!Objects.isNull(nickName)) {
             var player = playerDAO.findByNickName(nickName);

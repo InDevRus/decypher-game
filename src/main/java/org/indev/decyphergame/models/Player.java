@@ -3,6 +3,7 @@ package org.indev.decyphergame.models;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 import java.util.Set;
 
@@ -14,6 +15,7 @@ public class Player {
     private int id;
 
     @Column(unique = true, nullable = false, updatable = false)
+    @Pattern(regexp = "[A-Za-z]\\w+")
     private String nickName;
 
     @OneToMany(mappedBy = "player")
