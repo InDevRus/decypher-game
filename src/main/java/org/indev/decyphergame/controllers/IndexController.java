@@ -5,12 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.text.MessageFormat;
-import java.util.Objects;
+import java.util.Map;
 
 @Controller
 public class IndexController {
@@ -22,23 +21,19 @@ public class IndexController {
     }
 
     @GetMapping("/")
-    public ModelAndView index(@RequestParam(name = "nickName", required = false) String nickName,
-                              @RequestBody(required = false) Body body,
-                              ModelMap model) {
-        if (!Objects.isNull(body)) {
-            return new ModelAndView(MessageFormat.format("forward:/?nickName={0}", body.playerName), model);
-        }
-        if (!Objects.isNull(nickName)) {
-            var player = playerDAO.findByNickName(nickName);
-            player.ifPresentOrElse(
-                    found -> model.addAttribute("playerName", found.getNickName()),
-                    () -> model.addAttribute("wrongNickName", true)
-            );
-        }
+    public ModelAndView index(ModelMap model) {
         return new ModelAndView("index", model);
     }
 
-    private static class Body {
-        String playerName;
+    @PostMapping("/")
+    public ModelAndView index(@RequestParam Map<String, String> formData, ModelMap model) {
+        var nickName = formData.get("nickName");
+        model.addAttribute("playerName", nickName);
+
+        var player = playerDAO.findByNickName(nickName);
+        if (player.isEmpty())
+            model.addAttribute("wrongNickName", true);
+
+        return new ModelAndView("index", model);
     }
 }

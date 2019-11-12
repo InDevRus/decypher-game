@@ -15,7 +15,7 @@
 <div th:if="${playerName} == null">
     <p>Вы не зашли в систему</p>
 
-    <form action="/" method="get">
+    <form action="/" method="post">
         <label>
             Имя игрока
             <input name="nickName" pattern="[a-zA-Z0-9]+" placeholder="Имя игрока" required="required">
@@ -25,7 +25,7 @@
     </form>
 </div>
 
-<div th:if="${playerName} != null">
+<div th:if="!${wrongNickName} and ${playerName} != null">
     <p>Вас зовут: <span th:text="${playerName}"></span>.</p>
     <a href="/">Выйти</a>
 </div>
