@@ -12,18 +12,15 @@ import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-//TODO: Сделать интерфейс для шифровщика,
-// использовать при @Autowired только интерфейс
-// для однозначности использовать @Qualifier
 @Configuration
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class Casear {
+public class Caesar {
     private Function<Integer, Integer> letterMapper;
 
     @Bean
-    public Casear create() {
+    public Caesar create() {
         var lettersCount = Alphabet.letters.length();
-        var encrypting = new Casear();
+        var encrypting = new Caesar();
         final var offset = new Random().nextInt(lettersCount);
         encrypting.letterMapper = original -> (offset + original) % lettersCount;
         return encrypting;

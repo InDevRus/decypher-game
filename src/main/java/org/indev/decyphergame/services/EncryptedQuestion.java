@@ -3,7 +3,7 @@ package org.indev.decyphergame.services;
 import org.indev.decyphergame.models.Question;
 
 
-class EncryptedQuestion {
+public class EncryptedQuestion {
     private final Question question;
     private final String cypher;
 
