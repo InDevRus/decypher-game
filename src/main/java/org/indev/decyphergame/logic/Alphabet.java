@@ -10,8 +10,4 @@ public interface Alphabet {
     static int numberByLetter(String letter) {
         return letters.indexOf(letter);
     }
-
-    static int numberByLetter(char letter) {
-        return letters.indexOf(letter);
-    }
 }

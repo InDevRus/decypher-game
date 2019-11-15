@@ -7,18 +7,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
+import java.util.Arrays;
 import java.util.Random;
-import java.util.function.IntUnaryOperator;
+import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
-//TODO: Сделать интерфейс для шифровщика,
-// использовать при @Autowired только интерфейс
-// для однозначности использовать @Qualifier
-@Configuration
+@Configuration("AtBash")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class Atbash {
-    private IntUnaryOperator letterMapper;
+public class Atbash implements Encrypter {
+    private Function<Integer, Integer> letterMapper;
 
     @Bean
     public Atbash create() {
@@ -29,13 +26,12 @@ public class Atbash {
         return encrypting;
     }
 
+    @Override
     public String encrypt(Question question) {
-        return IntStream.range(0, question.getWord().length())
-                .map(question.getWord()::charAt)
-                .map(Alphabet.letters::indexOf)
+        return Arrays.stream(question.getWord().split(""))
+                .map(Alphabet::numberByLetter)
                 .map(this.letterMapper)
-                .boxed()
-                .map(position -> Alphabet.letters.charAt(position) + "")
+                .map(Alphabet::letterByNumber)
                 .collect(Collectors.joining());
     }
 }

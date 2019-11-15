@@ -1,12 +1,15 @@
 package org.indev.decyphergame.models;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "Result")
 public class Result {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private int id;
 
     @ManyToOne
@@ -17,7 +20,12 @@ public class Result {
     @JoinColumn(name = "question_id")
     private Question question;
 
-    @Column
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date createdAt;
+
+    @Column(updatable = false, nullable = false)
     @Enumerated(EnumType.STRING)
     private State state;
 

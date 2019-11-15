@@ -2,11 +2,33 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/static/css/index.css">
+    <link href="/css/index.css" rel="stylesheet">
     <title>Игра "Дешифровщик"</title>
 </head>
 <body>
 <h1>Добро пожаловать</h1>
-<p>Вас зовут: <span th:text="${playerName}"></span>.</p>
+
+<div th:if="${wrongNickName}">
+    <p>Игрок с таким именем не найден</p>
+</div>
+
+<div th:if="${playerName} == null">
+    <p>Вы не зашли в систему</p>
+
+    <form action="/" method="post">
+        <label>
+            Имя игрока
+            <input name="nickName" pattern="[a-zA-Z0-9]+" placeholder="Имя игрока" required="required">
+        </label>
+        <br>
+        <input type="submit" value="Войти">
+    </form>
+</div>
+
+<div th:if="!${wrongNickName} and ${playerName} != null">
+    <p>Вас зовут: <span th:text="${playerName}"></span>.</p>
+    <a href="/">Выйти</a>
+</div>
+
 </body>
 </html>

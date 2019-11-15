@@ -1,20 +1,35 @@
 package org.indev.decyphergame.models;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
 @Table(name = "Player")
 public class Player {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private int id;
+
+    @Column(unique = true, nullable = false, updatable = false)
+    @Pattern(regexp = "[A-Za-z]\\w+")
+    private String nickName;
 
     @OneToMany(mappedBy = "player")
     private Set<Result> results;
 
-    @Column(unique = true, nullable = false)
-    private String nickName;
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date createdAt;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date updatedAt;
 
     public Player() {
     }
