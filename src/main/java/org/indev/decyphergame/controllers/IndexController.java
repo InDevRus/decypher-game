@@ -13,10 +13,10 @@ import java.util.Map;
 
 @Controller
 public class IndexController {
-    private final PlayerDAO playerDAO;
+    private PlayerDAO playerDAO;
 
     @Autowired
-    public IndexController(PlayerDAO playerDAO) {
+    public void setPlayerDAO(PlayerDAO playerDAO) {
         this.playerDAO = playerDAO;
     }
 

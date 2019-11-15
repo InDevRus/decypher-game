@@ -12,12 +12,9 @@ import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-//TODO: Сделать интерфейс для шифровщика,
-// использовать при @Autowired только интерфейс
-// для однозначности использовать @Qualifier
-@Configuration
+@Configuration("AtBash")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class Atbash {
+public class Atbash implements Encrypter {
     private Function<Integer, Integer> letterMapper;
 
     @Bean
@@ -29,6 +26,7 @@ public class Atbash {
         return encrypting;
     }
 
+    @Override
     public String encrypt(Question question) {
         return Arrays.stream(question.getWord().split(""))
                 .map(Alphabet::numberByLetter)

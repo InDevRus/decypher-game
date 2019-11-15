@@ -1,25 +1,31 @@
 package org.indev.decyphergame.services;
 
 import org.indev.decyphergame.dao.api.ResultDAO;
-import org.indev.decyphergame.logic.cyphers.Atbash;
+import org.indev.decyphergame.logic.cyphers.Encrypter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
 public class AtbashService {
-    private final ResultDAO resultDAO;
-    private final Atbash atbash;
+    private ResultDAO resultDAO;
+    private Encrypter encrypter;
 
     @Autowired
-    public AtbashService(ResultDAO resultDAO, Atbash atbash) {
+    public void setResultDAO(ResultDAO resultDAO) {
         this.resultDAO = resultDAO;
-        this.atbash = atbash;
+    }
+
+    @Autowired
+    @Qualifier("AtBash")
+    public void setEncrypter(Encrypter encrypter) {
+        this.encrypter = encrypter;
     }
 
     public Optional<EncryptedQuestion> getRandomQuestion(String playerNickName) {
         return resultDAO.findUnansweredQuestion(playerNickName)
-                .map(question -> new EncryptedQuestion(question, atbash.encrypt(question)));
+                .map(question -> new EncryptedQuestion(question, encrypter.encrypt(question)));
     }
 }
