@@ -12,9 +12,9 @@ import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-@Configuration
+@Configuration("Caesar")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class Caesar {
+public class Caesar implements Encrypter {
     private Function<Integer, Integer> letterMapper;
 
     @Bean
@@ -26,6 +26,7 @@ public class Caesar {
         return encrypting;
     }
 
+    @Override
     public String encrypt(Question question) {
         return Arrays.stream(question.getWord().split(""))
                 .map(Alphabet::numberByLetter)

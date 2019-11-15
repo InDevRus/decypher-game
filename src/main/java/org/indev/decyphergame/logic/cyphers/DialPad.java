@@ -12,13 +12,21 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-class DialPadUnknownLetterException extends RuntimeException {
-
-}
-
-@Configuration
+@Configuration("DialPad")
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class Dialpad {
+public class DialPad implements Encrypter {
+    @Bean
+    public DialPad create() {
+        var encrypting = new DialPad();
+        encrypting.letterMapper = original -> dialPad
+                .keySet()
+                .stream()
+                .filter(key -> dialPad.get(key).contains(original))
+                .findFirst()
+                .orElseThrow(DialPadUnknownLetterException::new);
+        return encrypting;
+    }
+
     private static final Map<Integer, List<String>> dialPad = Map.of(
             1, List.of("А", "Б", "В"),
             2, List.of("Г", "Д", "Е"),
@@ -34,22 +42,15 @@ public class Dialpad {
 
     private Function<String, Integer> letterMapper;
 
-    @Bean
-    public Dialpad create() {
-        var encrypting = new Dialpad();
-        encrypting.letterMapper = original -> dialPad
-                .keySet()
-                .stream()
-                .filter(key -> dialPad.get(key).contains(original))
-                .findFirst()
-                .orElseThrow(DialPadUnknownLetterException::new);
-        return encrypting;
-    }
-
+    @Override
     public String encrypt(Question question) {
         return Arrays.stream(question.getWord().split(""))
                 .map(this.letterMapper)
                 .map(Object::toString)
                 .collect(Collectors.joining());
+    }
+
+    private static class DialPadUnknownLetterException extends RuntimeException {
+
     }
 }
