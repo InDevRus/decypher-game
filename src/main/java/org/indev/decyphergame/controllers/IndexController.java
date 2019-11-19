@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Map;
 
 @Controller
-public class IndexController {
+class IndexController {
     private PlayerDAO playerDAO;
 
     @Autowired

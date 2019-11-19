@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class AtbashService {
+class CaesarService {
     private ResultDAO resultDAO;
     private Encrypter encrypter;
 
@@ -20,12 +20,12 @@ public class AtbashService {
     }
 
     @Autowired
-    @Qualifier("AtBash")
+    @Qualifier("Caesar")
     public void setEncrypter(Encrypter encrypter) {
         this.encrypter = encrypter;
     }
 
-    public Optional<EncryptedQuestion> getRandomQuestion(String playerNickName) {
+    public Optional<EncryptedQuestion> chooseQuestion(String playerNickName) {
         return resultDAO.findUnansweredQuestion(playerNickName)
                 .map(encrypter::encrypt);
     }

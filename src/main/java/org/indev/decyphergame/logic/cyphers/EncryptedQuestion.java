@@ -1,4 +1,4 @@
-package org.indev.decyphergame.services;
+package org.indev.decyphergame.logic.cyphers;
 
 import org.indev.decyphergame.models.Question;
 

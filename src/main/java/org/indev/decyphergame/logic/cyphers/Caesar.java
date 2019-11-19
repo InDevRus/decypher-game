@@ -18,7 +18,7 @@ public class Caesar implements Encrypter {
     private Function<Integer, Integer> letterMapper;
 
     @Bean
-    public Caesar create() {
+    public Caesar createCaesar() {
         var lettersCount = Alphabet.letters.length();
         var encrypting = new Caesar();
         final var offset = new Random().nextInt(lettersCount);
@@ -27,11 +27,13 @@ public class Caesar implements Encrypter {
     }
 
     @Override
-    public String encrypt(Question question) {
-        return Arrays.stream(question.getWord().split(""))
+    public EncryptedQuestion encrypt(Question question) {
+        var cypher = Arrays.stream(question.getWord().split(""))
                 .map(Alphabet::numberByLetter)
                 .map(this.letterMapper)
                 .map(Alphabet::letterByNumber)
                 .collect(Collectors.joining());
+
+        return new EncryptedQuestion(question, cypher);
     }
 }

@@ -18,7 +18,7 @@ public class Atbash implements Encrypter {
     private Function<Integer, Integer> letterMapper;
 
     @Bean
-    public Atbash create() {
+    public Atbash createAtbash() {
         var lettersCount = Alphabet.letters.length();
         var encrypting = new Atbash();
         final var offset = new Random().nextInt(lettersCount);
@@ -27,11 +27,13 @@ public class Atbash implements Encrypter {
     }
 
     @Override
-    public String encrypt(Question question) {
-        return Arrays.stream(question.getWord().split(""))
+    public EncryptedQuestion encrypt(Question question) {
+        var cypher = Arrays.stream(question.getWord().split(""))
                 .map(Alphabet::numberByLetter)
                 .map(this.letterMapper)
                 .map(Alphabet::letterByNumber)
                 .collect(Collectors.joining());
+
+        return new EncryptedQuestion(question, cypher);
     }
 }

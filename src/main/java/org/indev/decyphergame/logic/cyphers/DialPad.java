@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class DialPad implements Encrypter {
     @Bean
-    public DialPad create() {
+    public DialPad createDialPad() {
         var encrypting = new DialPad();
         encrypting.letterMapper = original -> dialPad
                 .keySet()
@@ -25,6 +25,16 @@ public class DialPad implements Encrypter {
                 .findFirst()
                 .orElseThrow(DialPadUnknownLetterException::new);
         return encrypting;
+    }
+
+    @Override
+    public EncryptedQuestion encrypt(Question question) {
+        var cypher = Arrays.stream(question.getWord().split(""))
+                .map(this.letterMapper)
+                .map(Object::toString)
+                .collect(Collectors.joining());
+
+        return new EncryptedQuestion(question, cypher);
     }
 
     private static final Map<Integer, List<String>> dialPad = Map.of(
@@ -41,14 +51,6 @@ public class DialPad implements Encrypter {
     );
 
     private Function<String, Integer> letterMapper;
-
-    @Override
-    public String encrypt(Question question) {
-        return Arrays.stream(question.getWord().split(""))
-                .map(this.letterMapper)
-                .map(Object::toString)
-                .collect(Collectors.joining());
-    }
 
     private static class DialPadUnknownLetterException extends RuntimeException {
 

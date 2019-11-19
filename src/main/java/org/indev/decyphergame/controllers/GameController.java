@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/play")
-public class GameController {
+class GameController {
     private AtbashService atbashService;
 
     @Autowired
