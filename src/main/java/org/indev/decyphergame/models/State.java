@@ -1,22 +1,16 @@
 package org.indev.decyphergame.models;
 
 public enum State {
-    Success {
+    SUCCESS {
         @Override
         String message() {
             return "Успешно";
         }
     },
-    WrongAnswer {
+    WRONG_ANSWER {
         @Override
         String message() {
             return "Неверный ответ";
-        }
-    },
-    TimeIsUp {
-        @Override
-        String message() {
-            return "Время вышло";
         }
     };
 

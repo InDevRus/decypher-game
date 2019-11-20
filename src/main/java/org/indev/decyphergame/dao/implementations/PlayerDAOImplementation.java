@@ -24,25 +24,4 @@ public class PlayerDAOImplementation implements PlayerDAO {
                 .getResultStream()
                 .findAny();
     }
-
-    public void save(Player player) {
-        var transaction = entityManager.getTransaction();
-        transaction.begin();
-        entityManager.persist(player);
-        transaction.commit();
-    }
-
-    public void update(Player player) {
-        var transaction = entityManager.getTransaction();
-        transaction.begin();
-        entityManager.merge(player);
-        transaction.commit();
-    }
-
-    public void delete(Player player) {
-        var transaction = entityManager.getTransaction();
-        transaction.begin();
-        entityManager.remove(player);
-        transaction.commit();
-    }
 }

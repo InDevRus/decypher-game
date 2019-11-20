@@ -3,6 +3,7 @@ package org.indev.decyphergame.dao.implementations;
 import org.indev.decyphergame.dao.api.ResultDAO;
 import org.indev.decyphergame.models.Player;
 import org.indev.decyphergame.models.Question;
+import org.indev.decyphergame.models.Result;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -47,5 +48,19 @@ public class ResultDAOImplementation implements ResultDAO {
                 .getSingleResult()
                 .getId();
         return findUnansweredQuestion(playerId);
+    }
+
+    @Override
+    public void persist(Result result) {
+        var transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.persist(result);
+        transaction.commit();
+    }
+
+
+    @Override
+    public Optional<Result> findById(int resultId) {
+        return Optional.ofNullable(entityManager.find(Result.class, resultId));
     }
 }

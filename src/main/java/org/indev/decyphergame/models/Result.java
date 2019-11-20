@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "Result")
-class Result {
+public class Result {
     @Id
     @GeneratedValue
     private int id;
@@ -19,6 +19,9 @@ class Result {
     @ManyToOne
     @JoinColumn(name = "question_id")
     private Question question;
+
+    @Column(updatable = false, nullable = false)
+    private String cypher;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -55,5 +58,13 @@ class Result {
 
     public void setState(State state) {
         this.state = state;
+    }
+
+    public String getCypher() {
+        return cypher;
+    }
+
+    public void setCypher(String cypher) {
+        this.cypher = cypher;
     }
 }
