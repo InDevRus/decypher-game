@@ -56,4 +56,8 @@ public class Question {
     public void setWord(String word) {
         this.word = word;
     }
+
+    public String getHint() {
+        return hint;
+    }
 }

@@ -31,7 +31,7 @@ class ResultController {
 
         var result = resultService.submitAnswer(questionId, playerName, cypheredWord, givenAnswer);
 
-        return MessageFormat.format("redirect:/result/get?resultId={0}?playerName={1}",
+        return MessageFormat.format("redirect:/result/get?id={0}&playerName={1}",
                 result.getId(),
                 result.getPlayer().getNickName());
     }

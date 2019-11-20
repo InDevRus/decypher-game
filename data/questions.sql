@@ -1,4 +1,8 @@
 delete
+from "result"
+where true;
+
+delete
 from "question"
 where true;
 
@@ -82,3 +86,5 @@ values (1, 'Музыкальный жанр', 'Джаз', now(), now()),
        (77, 'Часть тела', 'Колено', now(), now()),
        (78, 'Часть тела', 'Лицо', now(), now());
 
+insert into result (id, created_at, state, player_id, question_id, cypher)
+values (1, now(), 'SUCCESS', 1, 1, 'ЕЗБИ');

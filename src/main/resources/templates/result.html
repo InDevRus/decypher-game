@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Игра "Дешифровщик"</title>
+</head>
+<body>
+<div>
+    <p th:text="|Вас зовут: ${result.getPlayer().getNickName()}|"></p>
+
+    <div>
+        Вопрос:
+        <p th:text="${result.getQuestion().getHint()}"></p>
+        <p th:text="${result.getCypher()}"></p>
+    </div>
+
+    <div>
+        Правильный ответ:
+        <p th:text="${result.getQuestion().getWord()}"></p>
+    </div>
+
+    <div>
+        Ваш результат:
+        <span th:class="${result.getState().toString()}" th:text="${result.getState().getMessage()}"></span>
+    </div>
+</div>
+</body>
+</html>

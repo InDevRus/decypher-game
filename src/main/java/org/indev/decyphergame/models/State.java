@@ -3,16 +3,16 @@ package org.indev.decyphergame.models;
 public enum State {
     SUCCESS {
         @Override
-        String message() {
-            return "Успешно";
+        public String getMessage() {
+            return "Правильный ответ";
         }
     },
     WRONG_ANSWER {
         @Override
-        String message() {
+        public String getMessage() {
             return "Неверный ответ";
         }
     };
 
-    abstract String message();
+    public abstract String getMessage();
 }
