@@ -14,7 +14,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/result")
-public class ResultController {
+class ResultController {
     private ResultService resultService;
 
     @Autowired
@@ -39,7 +39,11 @@ public class ResultController {
     @GetMapping("/get")
     public String get(@RequestParam("id") String resultId, @RequestParam String playerName, Model model) {
         var result = resultService.getResult(Integer.parseInt(resultId), playerName);
-        model.addAttribute("result", result);
-        return "result";
+
+        if (result.isPresent()) {
+            model.addAttribute("result", result.get());
+            return "result";
+        }
+        return "noResult";
     }
 }
