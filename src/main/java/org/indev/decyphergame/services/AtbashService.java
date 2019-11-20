@@ -25,7 +25,7 @@ public class AtbashService {
         this.encrypter = encrypter;
     }
 
-    public Optional<EncryptedQuestion> getRandomQuestion(String playerNickName) {
+    public Optional<EncryptedQuestion> chooseQuestion(String playerNickName) {
         return resultDAO.findUnansweredQuestion(playerNickName)
                 .map(encrypter::encrypt);
     }

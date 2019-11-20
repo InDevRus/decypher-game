@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-class DialPadService {
+public class DialPadService {
     private ResultDAO resultDAO;
     private Encrypter encrypter;
 

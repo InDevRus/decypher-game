@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-class CaesarService {
+public class CaesarService {
     private ResultDAO resultDAO;
     private Encrypter encrypter;
 
