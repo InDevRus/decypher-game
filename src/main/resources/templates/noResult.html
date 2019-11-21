@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Игра "Дешифровщик"</title>
 </head>
 <body>
-<div>
+<p>
     Результат не найден
-</div>
+</p>
+<a th:href="@{/(nickName=${nickName})}">Вернуться на главную</a>
 </body>
 </html>

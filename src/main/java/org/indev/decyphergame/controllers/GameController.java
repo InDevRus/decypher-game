@@ -33,9 +33,9 @@ class GameController {
     }
 
     @GetMapping("/dialPad")
-    public String dialPad(@RequestParam("playerName") String playerName, Model model) {
-        var encrypted = dialPadService.chooseQuestion(playerName);
-        model.addAttribute("playerName", playerName);
+    public String dialPad(@RequestParam("nickName") String nickName, Model model) {
+        var encrypted = dialPadService.chooseQuestion(nickName);
+        model.addAttribute("nickName", nickName);
         if (encrypted.isPresent()) {
             model.addAttribute("encrypted", encrypted.get());
             return "game";
@@ -44,21 +44,21 @@ class GameController {
     }
 
     @GetMapping("/atbash")
-    public String atbash(@RequestParam("playerName") String playerName, Model model) {
-        var encrypted = atbashService.chooseQuestion(playerName);
-        model.addAttribute("playerName", playerName);
+    public String atbash(@RequestParam("nickName") String nickName, Model model) {
+        var encrypted = atbashService.chooseQuestion(nickName);
+        model.addAttribute("nickName", nickName);
         if (encrypted.isPresent()) {
             model.addAttribute("encrypted", encrypted.get());
             return "game";
         }
-        model.addAttribute("playerName", playerName);
+        model.addAttribute("nickName", nickName);
         return "noQuestion";
     }
 
     @GetMapping("/caesar")
-    public String caesar(@RequestParam("playerName") String playerName, Model model) {
-        var encrypted = caesarService.chooseQuestion(playerName);
-        model.addAttribute("playerName", playerName);
+    public String caesar(@RequestParam("nickName") String nickName, Model model) {
+        var encrypted = caesarService.chooseQuestion(nickName);
+        model.addAttribute("nickName", nickName);
         if (encrypted.isPresent()) {
             model.addAttribute("encrypted", encrypted.get());
             return "game";

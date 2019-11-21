@@ -8,21 +8,32 @@
 <div>
     <p th:text="|Вас зовут: ${result.getPlayer().getNickName()}|"></p>
 
-    <div>
+    <p>
         Вопрос:
-        <p th:text="${result.getQuestion().getHint()}"></p>
-        <p th:text="${result.getCypher()}"></p>
-    </div>
+        <br>
+        <span th:text="${result.getQuestion().getHint()}"></span>
+        <span th:text="${result.getCypher()}"></span>
+    </p>
 
-    <div>
+    <p>
         Правильный ответ:
-        <p th:text="${result.getQuestion().getWord()}"></p>
-    </div>
+        <br>
+        <span th:text="${result.getQuestion().getWord()}"></span>
+    </p>
 
-    <div>
+    <p>
+        Ваш ответ:
+        <br>
+        <span th:text="${result.getAnswer()}"></span>
+    </p>
+
+    <p>
         Ваш результат:
+        <br>
         <span th:class="${result.getState().toString()}" th:text="${result.getState().getMessage()}"></span>
-    </div>
+    </p>
+
+    <a th:href="@{/(nickName=${nickName})}">Вернуться на главную</a>
 </div>
 </body>
 </html>

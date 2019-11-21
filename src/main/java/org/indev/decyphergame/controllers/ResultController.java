@@ -25,21 +25,21 @@ class ResultController {
     @PostMapping("/submit")
     public String submit(@RequestParam Map<String, String> parameters, Model model) {
         var questionId = Integer.parseInt(parameters.get("questionId"));
-        var playerName = parameters.get("playerName");
+        var nickName = parameters.get("nickName");
         var cypheredWord = parameters.get("cypheredWord");
         var givenAnswer = parameters.get("answer");
 
-        var result = resultService.submitAnswer(questionId, playerName, cypheredWord, givenAnswer);
+        var result = resultService.submitAnswer(questionId, nickName, cypheredWord, givenAnswer);
 
-        return MessageFormat.format("redirect:/result/get?id={0}&playerName={1}",
+        return MessageFormat.format("redirect:/result/get?id={0}&nickName={1}",
                 result.getId(),
                 result.getPlayer().getNickName());
     }
 
     @GetMapping("/get")
-    public String get(@RequestParam("id") String resultId, @RequestParam String playerName, Model model) {
-        var result = resultService.getResult(Integer.parseInt(resultId), playerName);
-
+    public String get(@RequestParam("id") String resultId, @RequestParam String nickName, Model model) {
+        var result = resultService.getResult(Integer.parseInt(resultId), nickName);
+        model.addAttribute("nickName", nickName);
         if (result.isPresent()) {
             model.addAttribute("result", result.get());
             return "result";

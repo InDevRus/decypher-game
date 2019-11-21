@@ -2,7 +2,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <!--<link href="/css/index.css" rel="stylesheet">-->
     <title>Игра "Дешифровщик"</title>
 </head>
 <body>
@@ -13,12 +12,25 @@
 
 
 <form action="/result/submit" method="post">
-    <input name="answer">
-    <input hidden name="questionId" th:value="${encrypted.getQuestion().getId()}"/>
-    <input hidden name="playerName" th:value="${playerName}"/>
-    <input hidden name="cypheredWord" th:value="${encrypted.getCypher()}"/>
+    <label>
+        <input name="answer">
+    </label>
 
-    <input type="submit" value="Ответить"/>
+    <label>
+        <input hidden name="questionId" th:value="${encrypted.getQuestion().getId()}"/>
+    </label>
+
+    <label>
+        <input hidden name="nickName" th:value="${nickName}"/>
+    </label>
+
+    <label>
+        <input hidden name="cypheredWord" th:value="${encrypted.getCypher()}"/>
+    </label>
+
+    <label>
+        <input type="submit" value="Ответить"/>
+    </label>
 </form>
 
 
