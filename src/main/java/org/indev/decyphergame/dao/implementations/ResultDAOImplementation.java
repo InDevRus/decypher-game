@@ -5,6 +5,7 @@ import org.indev.decyphergame.models.Player;
 import org.indev.decyphergame.models.Question;
 import org.indev.decyphergame.models.Result;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -53,12 +54,10 @@ public class ResultDAOImplementation implements ResultDAO {
         return findUnansweredQuestion(playerId);
     }
 
+    @Transactional
     @Override
     public void persist(Result result) {
-        var transaction = entityManager.getTransaction();
-        transaction.begin();
         entityManager.persist(result);
-        transaction.commit();
     }
 
 

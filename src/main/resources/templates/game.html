@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--<link href="/css/index.css" rel="stylesheet">-->
+    <title>Игра "Дешифровщик"</title>
+</head>
+<body>
+
+<p th:text="${encrypted.getQuestion().getHint()}"></p>
+
+<p th:text="${encrypted.getCypher()}"></p>
+
+
+<form action="/result/submit" method="post">
+    <input name="answer">
+    <input hidden name="questionId" th:value="${encrypted.getQuestion().getId()}"/>
+    <input hidden name="playerName" th:value="${playerName}"/>
+    <input hidden name="cypheredWord" th:value="${encrypted.getCypher()}"/>
+
+    <input type="submit" value="Ответить"/>
+</form>
+
+
+</body>
+</html>

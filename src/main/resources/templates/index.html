@@ -28,6 +28,14 @@
 <div th:if="!${wrongNickName} and ${playerName} != null">
     <p>Вас зовут: <span th:text="${playerName}"></span>.</p>
     <a href="/">Выйти</a>
+
+    <p>Выберите игру:</p>
+    <a methods="GET" th:href="@{/play/atbash?(playerName=${playerName})}">Атбаш</a>
+    <br>
+    <a methods="GET" th:href="@{/play/caesar?(playerName=${playerName})}">Цезарь</a>
+    <br>
+
+
 </div>
 
 </body>
