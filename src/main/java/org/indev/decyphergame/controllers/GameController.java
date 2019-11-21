@@ -35,9 +35,9 @@ class GameController {
     @GetMapping("/dialPad")
     public String dialPad(@RequestParam("playerName") String playerName, Model model) {
         var encrypted = dialPadService.chooseQuestion(playerName);
+        model.addAttribute("playerName", playerName);
         if (encrypted.isPresent()) {
             model.addAttribute("encrypted", encrypted.get());
-            model.addAttribute("playerName", playerName);
             return "game";
         }
         return "noQuestion";
@@ -46,20 +46,21 @@ class GameController {
     @GetMapping("/atbash")
     public String atbash(@RequestParam("playerName") String playerName, Model model) {
         var encrypted = atbashService.chooseQuestion(playerName);
+        model.addAttribute("playerName", playerName);
         if (encrypted.isPresent()) {
             model.addAttribute("encrypted", encrypted.get());
-            model.addAttribute("playerName", playerName);
             return "game";
         }
+        model.addAttribute("playerName", playerName);
         return "noQuestion";
     }
 
     @GetMapping("/caesar")
     public String caesar(@RequestParam("playerName") String playerName, Model model) {
         var encrypted = caesarService.chooseQuestion(playerName);
+        model.addAttribute("playerName", playerName);
         if (encrypted.isPresent()) {
             model.addAttribute("encrypted", encrypted.get());
-            model.addAttribute("playerName", playerName);
             return "game";
         }
         return "noQuestion";
