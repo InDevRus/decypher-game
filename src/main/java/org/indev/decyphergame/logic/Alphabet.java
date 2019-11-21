@@ -8,6 +8,6 @@ public interface Alphabet {
     }
 
     static int numberByLetter(String letter) {
-        return letters.indexOf(letter);
+        return letters.indexOf(letter.toUpperCase());
     }
 }

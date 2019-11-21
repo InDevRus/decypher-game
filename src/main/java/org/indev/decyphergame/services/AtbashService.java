@@ -20,7 +20,7 @@ public class AtbashService {
     }
 
     @Autowired
-    @Qualifier("AtBash")
+    @Qualifier("createAtbash")
     public void setEncrypter(Encrypter encrypter) {
         this.encrypter = encrypter;
     }

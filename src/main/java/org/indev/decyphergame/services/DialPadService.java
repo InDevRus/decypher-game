@@ -20,7 +20,7 @@ public class DialPadService {
     }
 
     @Autowired
-    @Qualifier("DialPad")
+    @Qualifier("createDialPad")
     public void setEncrypter(Encrypter encrypter) {
         this.encrypter = encrypter;
     }

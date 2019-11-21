@@ -20,7 +20,7 @@ public class CaesarService {
     }
 
     @Autowired
-    @Qualifier("Caesar")
+    @Qualifier("createCaesar")
     public void setEncrypter(Encrypter encrypter) {
         this.encrypter = encrypter;
     }

@@ -1,10 +1,11 @@
 package org.indev.decyphergame.logic.cyphers;
 
 import org.indev.decyphergame.models.Question;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,10 +13,11 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-@Configuration("DialPad")
-@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@Configuration
 public class DialPad implements Encrypter {
+
     @Bean
+    @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
     public DialPad createDialPad() {
         var encrypting = new DialPad();
         encrypting.letterMapper = original -> dialPad
