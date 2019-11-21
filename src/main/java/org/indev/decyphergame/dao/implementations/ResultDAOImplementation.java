@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Optional;
+import java.util.Random;
 
 @Repository
 public class ResultDAOImplementation implements ResultDAO {
@@ -17,24 +18,26 @@ public class ResultDAOImplementation implements ResultDAO {
 
     @Override
     public Integer countUnansweredQuestions(int playerId) {
-        return entityManager.createQuery("select count(*) from Question question " +
+        var count = entityManager.createQuery("select count(question) from Question question " +
                 "left outer join Result result " +
-                "on result.question.id = question.id " +
-                "where result.player.id = :playerId and result is null ", Integer.class)
+                "on result.question.id = question.id and result.player.id = :playerId " +
+                "where result is null ", Long.class)
                 .setParameter("playerId", playerId)
                 .getSingleResult();
+        return Math.toIntExact(count);
     }
 
     @Override
     public Optional<Question> findUnansweredQuestion(int playerId) {
         var questionsCount = countUnansweredQuestions(playerId);
+        var questionNumber = new Random().nextInt(questionsCount);
 
         return entityManager.createQuery("select question from Question question " +
                 "left outer join Result result " +
-                "on result.question.id = question.id " +
-                "where result.player.id = :playerId and result is null ", Question.class)
+                "on result.question.id = question.id and result.player.id = :playerId " +
+                "where result is null ", Question.class)
                 .setParameter("playerId", playerId)
-                .setFirstResult(questionsCount)
+                .setFirstResult(questionNumber)
                 .setMaxResults(1)
                 .getResultStream()
                 .findAny();

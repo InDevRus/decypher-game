@@ -38,7 +38,7 @@ public class ResultService {
         result.setQuestion(question);
         result.setCypher(cypher);
 
-        var resultState = question.getWord().equals(answer) ? State.SUCCESS : State.WRONG_ANSWER;
+        var resultState = question.getWord().equalsIgnoreCase(answer) ? State.SUCCESS : State.WRONG_ANSWER;
         result.setState(resultState);
 
         resultDAO.persist(result);
