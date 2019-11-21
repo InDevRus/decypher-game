@@ -31,12 +31,13 @@ public class ResultService {
         this.questionDAO = questionDAO;
     }
 
-    public Result submitAnswer(Integer questionId, String playerName, String cypher, String answer) {
+    public Result submitAnswer(Integer questionId, String nickName, String cypher, String answer) {
         var result = new Result();
-        result.setPlayer(playerDAO.findByNickName(playerName).orElseThrow());
+        result.setPlayer(playerDAO.findByNickName(nickName).orElseThrow());
         var question = questionDAO.findById(questionId);
         result.setQuestion(question);
         result.setCypher(cypher);
+        result.setAnswer(answer);
 
         var resultState = question.getWord().equalsIgnoreCase(answer) ? State.SUCCESS : State.WRONG_ANSWER;
         result.setState(resultState);
@@ -46,9 +47,9 @@ public class ResultService {
         return result;
     }
 
-    public Optional<Result> getResult(int resultId, String playerName) {
+    public Optional<Result> getResult(int resultId, String nickName) {
         return resultDAO
                 .findById(resultId)
-                .filter(result -> result.getPlayer().getNickName().equals(playerName));
+                .filter(result -> result.getPlayer().getNickName().equals(nickName));
     }
 }

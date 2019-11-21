@@ -23,6 +23,9 @@ public class Result {
     @Column(updatable = false, nullable = false)
     private String cypher;
 
+    @Column(nullable = false)
+    private String answer;
+
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
@@ -66,5 +69,13 @@ public class Result {
 
     public void setCypher(String cypher) {
         this.cypher = cypher;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 }
