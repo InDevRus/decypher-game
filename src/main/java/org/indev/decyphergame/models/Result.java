@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "Result")
+@Table
 public class Result {
     @Id
     @GeneratedValue

@@ -10,13 +10,13 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "Question", uniqueConstraints = @UniqueConstraint(columnNames = {"word", "hint"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"word", "hint"}))
 public class Question {
     @Id
     @GeneratedValue
     private int id;
 
-    @Column(name = "word")
+    @Column
     @Pattern(regexp = "[А-ЯЁа-яё]")
     @Size(min = 4, max = 10)
     private String word;
