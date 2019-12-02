@@ -18,6 +18,10 @@ public class Player {
     @Pattern(regexp = "[A-Za-z]\\w+")
     private String nickName;
 
+    @Column(nullable = false)
+    @Pattern(regexp = "[A-Za-z]\\w+")
+    private String password;
+
     @OneToMany(mappedBy = "player")
     private Set<Result> results;
 
@@ -44,5 +48,13 @@ public class Player {
 
     public void setNickname(String nickName) {
         this.nickName = nickName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
