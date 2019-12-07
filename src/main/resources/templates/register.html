@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="../static/css/index.css" rel="stylesheet">
+    <title>Register</title>
+</head>
+<body>
+
+<div>
+    <form method="POST" action="/register" th:object="${player}">
+        <h2>Register</h2>
+        <label>
+            <input name="nickName" placeholder="Введите имя" autofocus/>
+        </label>
+        <label>
+            <input name="password" placeholder="Введите пароль" type="password"/>
+        </label>
+        <label>
+            <input name="passwordConfirm" placeholder="Повторите пароль" type="password"/>
+        </label>
+        <input type="submit"/>
+    </form>
+</div>
+
+</body>
+</html>

@@ -3,6 +3,7 @@ package org.indev.decyphergame.dao.implementations;
 import org.indev.decyphergame.dao.api.PlayerDAO;
 import org.indev.decyphergame.models.Player;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,5 +24,11 @@ public class PlayerDAOImplementation implements PlayerDAO {
                 .setParameter("nickName", nickName)
                 .getResultStream()
                 .findAny();
+    }
+
+    @Override
+    @Transactional
+    public void save(Player player) {
+        entityManager.persist(player);
     }
 }

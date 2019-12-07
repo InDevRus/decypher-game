@@ -5,6 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -35,6 +36,9 @@ public class Player {
     @Column(nullable = false)
     private Date updatedAt;
 
+    @ManyToMany
+    private Set<Role> roles;
+
     public Player() {
     }
 
@@ -56,5 +60,9 @@ public class Player {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
     }
 }
