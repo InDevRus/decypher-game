@@ -1,27 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link href="../static/css/index.css" rel="stylesheet">
-    <title>Register</title>
+    <link href="/css/index.css" rel="stylesheet">
+    <title>Регистрация</title>
 </head>
 <body>
 
 <div>
-    <form method="POST" action="/register" th:object="${player}">
-        <h2>Register</h2>
+    <form method="post" th:action="@{/register}" th:object="${player}">
+        <h2>Регистрация</h2>
         <label>
-            <input name="nickName" placeholder="Введите имя" autofocus/>
+            <input autofocus placeholder="Введите имя" th:field="*{nickName}"/>
         </label>
+        <br>
         <label>
-            <input name="password" placeholder="Введите пароль" type="password"/>
+            <input placeholder="Введите пароль" th:field="*{password}" type="password"/>
         </label>
+        <br>
         <label>
-            <input name="passwordConfirm" placeholder="Повторите пароль" type="password"/>
+            <input placeholder="Повторите пароль" th:field="*{passwordConfirmation}" type="password"/>
         </label>
+
+        <p th:each="error : ${#fields.allErrors()}" th:text="${error}"></p>
+
         <input type="submit"/>
     </form>
 </div>
-
 </body>
 </html>

@@ -4,20 +4,31 @@ import org.indev.decyphergame.models.Player;
 import org.indev.decyphergame.services.security.SecurityService;
 import org.indev.decyphergame.services.security.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
+
 @Controller
 public class RegisterController {
     private UserService userService;
+    private Validator validator;
 
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    @Autowired
+    @Qualifier("playerValidator")
+    public void setValidator(Validator validator) {
+        this.validator = validator;
     }
 
     private SecurityService securityService;
@@ -34,8 +45,8 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute("player") Player player, BindingResult bindingResult) {
-        // TODO add validator
+    public String register(@Valid @ModelAttribute Player player, BindingResult bindingResult, Model model) {
+        validator.validate(player, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "register";

@@ -1,33 +1,24 @@
 package org.indev.decyphergame.controllers;
 
-import org.indev.decyphergame.dao.api.PlayerDAO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Objects;
 
 @Controller
 class IndexController {
-    private PlayerDAO playerDAO;
-
-    @Autowired
-    public void setPlayerDAO(PlayerDAO playerDAO) {
-        this.playerDAO = playerDAO;
+    @GetMapping({"/", "/index"})
+    public String index() {
+        return "index";
     }
 
-    @GetMapping("/")
-    public ModelAndView index(@RequestParam(required = false) String nickName, ModelMap model) {
-        if (Objects.nonNull(nickName)) {
-            model.addAttribute("nickName", nickName);
-            var player = playerDAO.findByNickName(nickName);
-            if (player.isEmpty())
-                model.addAttribute("wrongNickName", true);
-        }
-        
-        return new ModelAndView("index", model);
+    @GetMapping("/login")
+    public String login(Model model, String error, String logout) {
+        if (error != null)
+            model.addAttribute("error", "Your username and password is invalid.");
+
+        if (logout != null)
+            model.addAttribute("message", "You have been logged out successfully.");
+
+        return "login";
     }
 }

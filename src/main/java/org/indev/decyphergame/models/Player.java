@@ -9,19 +9,22 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Player")
+@Table
 public class Player {
     @Id
     @GeneratedValue
     private int id;
 
     @Column(unique = true, nullable = false, updatable = false)
-    @Pattern(regexp = "[A-Za-z]\\w+")
+    @Pattern(regexp = "\\w{4,20}",
+            message = "Никнейм должен быть строкой от 4 до 20 символов, состоящих из латинских букв и цифр.")
     private String nickName;
 
     @Column(nullable = false)
-    @Pattern(regexp = "[A-Za-z]\\w+")
     private String password;
+
+    @Transient
+    private String passwordConfirmation;
 
     @OneToMany(mappedBy = "player")
     private Set<Result> results;
@@ -37,7 +40,7 @@ public class Player {
     private Date updatedAt;
 
     @ManyToMany
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
     public Player() {
     }
@@ -50,7 +53,7 @@ public class Player {
         return nickName;
     }
 
-    public void setNickname(String nickName) {
+    public void setNickName(String nickName) {
         this.nickName = nickName;
     }
 
@@ -64,5 +67,14 @@ public class Player {
 
     public Set<Role> getRoles() {
         return roles;
+    }
+
+    public String getPasswordConfirmation() {
+        return passwordConfirmation;
+    }
+
+    @SuppressWarnings("unused")
+    public void setPasswordConfirmation(String passwordConfirmation) {
+        this.passwordConfirmation = passwordConfirmation;
     }
 }

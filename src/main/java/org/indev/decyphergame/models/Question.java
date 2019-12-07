@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "Question", uniqueConstraints = @UniqueConstraint(columnNames = {"word", "hint"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"word", "hint"}))
 public class Question {
     @Id
     @GeneratedValue
