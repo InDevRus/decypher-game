@@ -8,23 +8,34 @@
     <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
-<h1>Добро пожаловать</h1>
 
-<div sec:authorize="isAnonymous()">
-    <a href="/register">Зарегестрироваться</a>
-    <br>
-    <a href="/login">Войти</a>
-</div>
+<div class="modal">
+    <div class="modal_content">
+        <div class="modal-header">
+            <h1>Дешифровщик</h1>
+        </div>
+        <div class="modal-body">
 
-<div sec:authorize="isAuthenticated()">
-    <p>
-        Вас зовут: <span sec:authentication="name"></span>
-    </p>
+            <div sec:authorize="isAuthenticated()">
+                <p>
+                    Вас зовут: <span sec:authentication="name"></span>
+                </p>
 
-    <form method="post" th:action="@{/logout}">
-        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
-        <input type="submit" value="Выйти">
-    </form>
+                <form method="post" th:action="@{/logout}">
+                    <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+                    <a href="/play" class="go-to-game">Перейти к играм</a>
+                    <input type="submit" value="Выйти" class="button-submit">
+                </form>
+            </div>
+
+            <div sec:authorize="isAnonymous()">
+                <a href="/register" class="registration">Зарегестрироваться</a>
+                <a href="/login">Войти</a>
+            </div>
+
+
+        </div>
+    </div>
 </div>
 </body>
 </html>

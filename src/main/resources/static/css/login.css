@@ -33,46 +33,42 @@ body {
     font-size: 50px;
     color: #e7eaef;
 }
-
-.modal_content p{
-    font-family: 'Segoe UI', cursive;
-    font-size: 20px;
-    color: #9ba8b8;
-    padding: 10px;
+.group {
+    position: relative;
+    padding-bottom: 15px;
+    padding-top: 20px;
 }
 
-a {
-    background-color: rgb(212,75,56);
-    font-family: 'Segoe UI', cursive;
-    color: #fff;
-    padding: 10px 30px;
-    text-decoration: none;
-    text-transform: uppercase;
-}
-
-a:hover {
-    background: rgb(232,95,76);
-}
-
-a:active {
-    background: rgb(152,15,0);
-}
-
-.registration{
-    margin-left: 10px;
-    margin-right: 10px;
-}
 
 input {
     font-size: 16px;
     padding: 9px;
     display: block;
-    width: 182px;
+    width: 340px;
     border: none;
 }
 input:focus {
     outline: none;
 }
+label {
+    color: #999;
+    font-size: 20px;
+    font-family: 'Ubuntu', sans-serif;
+    position: absolute;
+    pointer-events: none;
+    left: 10px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+    top: 25px;
+}
+
+input:focus ~ label, input:valid ~ label {
+    top: -5px;
+    /*left: -1px;*/
+    color: #9ba8b8;
+}
+
 
 .button-submit{
     font-family: 'Segoe UI', cursive;
@@ -84,8 +80,8 @@ input:focus {
     user-select: none;
     background: rgb(212,75,56);
     outline: none;
-    /*margin: 5px;*/
-    bottom: 130px;
+    margin: 5px;
+    bottom: 140px;
 
 }
 .button-submit:hover {
@@ -94,4 +90,37 @@ input:focus {
 
 .button-submit:active {
     background: rgb(152,15,0);
+}
+p{
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 20px;
+    color: #9ba8b8;
+}
+
+a {
+    position: absolute;
+    font-family: 'Segoe UI', cursive;
+    font-size: 10px;
+    color: #9ba8b8;
+    padding: 3px 28px;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid #9ba8b8;
+    top: 150px;
+    left: 35px;
+}
+
+a:hover {
+    border-color: #fff;
+    color: #fff;
+}
+
+a:active {
+    background: #fff;
+    color: #1E2535;
+}
+
+span{
+    font-family: 'Segoe UI', cursive;
+    color: #fff;
 }

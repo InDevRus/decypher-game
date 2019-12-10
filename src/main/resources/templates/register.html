@@ -3,28 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Регистрация</title>
+    <link rel="stylesheet" th:href="@{/css/register.css}">
 </head>
 <body>
 
-<div>
-    <form method="post" th:action="@{/register}" th:object="${player}">
-        <h2>Регистрация</h2>
-        <label>
-            <input autofocus placeholder="Введите имя" th:field="*{nickName}"/>
-        </label>
-        <br>
-        <label>
-            <input placeholder="Введите пароль" th:field="*{password}" type="password"/>
-        </label>
-        <br>
-        <label>
-            <input placeholder="Повторите пароль" th:field="*{passwordConfirmation}" type="password"/>
-        </label>
+<div class="modal">
+    <div class="modal_content">
+        <div class="modal-header">
+            <h1>Регистрация</h1>
+        </div>
+        <div class="modal-body">
+            <form method="post" th:action="@{/register}" th:object="${player}">
 
-        <p th:each="error : ${#fields.allErrors()}" th:text="${error}"></p>
+                <div class="group group-name">
+                    <input type="text" th:field="*{nickName}" required="required">
+                    <span class="bar"></span>
+                    <label>Имя игрока</label>
+                </div>
+                <div class="group group-password">
+                    <input type="password" th:field="*{password}" required="required">
+                    <span class="bar"></span>
+                    <label>Пароль</label>
+                </div>
+                <div class="group group-password2">
+                    <input type="password" th:field="*{passwordConfirmation}" required="required">
+                    <span class="bar"></span>
+                    <label>Повтор пороля</label>
+                </div>
+                <p th:each="error : ${#fields.allErrors()}" th:text="${error}"></p>
 
-        <input type="submit"/>
-    </form>
+                <input type="submit" class="button-submit"/>
+            </form>
+            <a th:href='@{/}'>Вернуться</a>
+        </div>
+    </div>
 </div>
 </body>
 </html>
