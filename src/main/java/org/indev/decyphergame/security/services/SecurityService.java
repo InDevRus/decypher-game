@@ -1,4 +1,4 @@
-package org.indev.decyphergame.services.security;
+package org.indev.decyphergame.security.services;
 
 public interface SecurityService {
     String findLoggedInUsername();

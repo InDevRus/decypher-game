@@ -1,8 +1,8 @@
 package org.indev.decyphergame.controllers;
 
 import org.indev.decyphergame.models.Player;
-import org.indev.decyphergame.services.security.SecurityService;
-import org.indev.decyphergame.services.security.UserService;
+import org.indev.decyphergame.security.services.PlayerService;
+import org.indev.decyphergame.security.services.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -17,12 +17,12 @@ import javax.validation.Valid;
 
 @Controller
 public class RegisterController {
-    private UserService userService;
+    private PlayerService playerService;
     private Validator validator;
 
     @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
+    public void setPlayerService(PlayerService playerService) {
+        this.playerService = playerService;
     }
 
     @Autowired
@@ -45,15 +45,22 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String register(@Valid @ModelAttribute Player player, BindingResult bindingResult, Model model) {
+    public String register(@Valid @ModelAttribute Player player, BindingResult bindingResult) {
         validator.validate(player, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "register";
         }
 
-        userService.save(player);
-        securityService.autoLogin(player.getNickName(), player.getPassword());
+        playerService.save(player);
+
+        /*
+        TODO: Избавиться от авто-логина.
+        Авто-логин, как я (Ваня) понял, является большущим анти-паттерном и
+        приносит больше проблем, чем пользы. В качестве бонуса мы практически
+        полностью избавимся от уродливого инфраструктурного кода.
+        */
+        securityService.autoLogin(player.getNickName(), player.getPasswordConfirmation());
 
         return "redirect:/";
     }

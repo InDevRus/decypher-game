@@ -1,19 +1,19 @@
-package org.indev.decyphergame.services.security;
+package org.indev.decyphergame.security.services;
 
 import org.indev.decyphergame.dao.api.PlayerDAO;
 import org.indev.decyphergame.dao.api.RoleDAO;
 import org.indev.decyphergame.models.Player;
 import org.indev.decyphergame.models.RoleValue;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class PlayerServiceImpl implements PlayerService {
     private PlayerDAO playerDAO;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private PasswordEncoder passwordEncoder;
     private RoleDAO roleDAO;
 
     @Autowired
@@ -22,8 +22,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Autowired
-    public void setBCryptPasswordEncoder(BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    public void setBCryptPasswordEncoder(PasswordEncoder bCryptPasswordEncoder) {
+        this.passwordEncoder = bCryptPasswordEncoder;
     }
 
     @Autowired
@@ -33,13 +33,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(Player player) {
-        player.setPassword(bCryptPasswordEncoder.encode(player.getPassword()));
+        player.setPassword(passwordEncoder.encode(player.getPassword()));
         player.getRoles().add(roleDAO.findByValue(RoleValue.USER));
         playerDAO.save(player);
     }
 
     @Override
-    public Optional<Player> findByUsername(String username) {
+    public Optional<Player> findByNickName(String username) {
         return playerDAO.findByNickName(username);
     }
 }

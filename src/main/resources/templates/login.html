@@ -2,24 +2,32 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/css/index.css}">
     <title>Login</title>
 </head>
 <body>
 
 <div>
-    <form action="/login" method="post">
+    <form method="post" th:action="@{/login}">
         <h2>Log in</h2>
+
         <label>
             <input autofocus name="username" placeholder="Введите имя"/>
         </label>
+
+        <br>
+
         <label>
             <input name="password" placeholder="Введите пароль" type="password"/>
         </label>
+
         <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
-        <span th:text="${error}"></span>
         <input type="submit"/>
+
+        <br th:if="${error}">
+        <span th:text="${error}"></span>
     </form>
+
+    <p><a th:href='@{/register}'>Зарегестрироваться</a></p>
 </div>
 
 </body>

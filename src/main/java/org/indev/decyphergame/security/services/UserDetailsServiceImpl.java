@@ -1,6 +1,7 @@
-package org.indev.decyphergame.services;
+package org.indev.decyphergame.security.services;
 
 import org.indev.decyphergame.models.Player;
+import org.indev.decyphergame.services.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

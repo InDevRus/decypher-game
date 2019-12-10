@@ -16,4 +16,9 @@ public class Role {
     @Column(unique = true, nullable = false)
     @Enumerated(EnumType.STRING)
     private RoleValue roleValue;
+
+    @Override
+    public String toString() {
+        return roleValue.toString();
+    }
 }

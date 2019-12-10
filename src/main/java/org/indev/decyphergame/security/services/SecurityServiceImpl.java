@@ -1,8 +1,7 @@
-package org.indev.decyphergame.services.security;
+package org.indev.decyphergame.security.services;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.method.P;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,7 +29,7 @@ public class SecurityServiceImpl implements SecurityService {
     public String findLoggedInUsername() {
         Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
         if (userDetails instanceof UserDetails) {
-            return ((UserDetails)userDetails).getUsername();
+            return ((UserDetails) userDetails).getUsername();
         }
 
         return null;
@@ -38,14 +37,13 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public void autoLogin(String username, String password) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                new UsernamePasswordAuthenticationToken(userDetails, password);
+        var userDetails = userDetailsService.loadUserByUsername(username);
+        var authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password);
 
-        authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+        var result = authenticationManager.authenticate(authenticationToken);
 
-        if (usernamePasswordAuthenticationToken.isAuthenticated()) {
-            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+        if (result.isAuthenticated()) {
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
     }
 }

@@ -4,19 +4,23 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link href="/static/css/index.css" rel="stylesheet">
     <title>Игра "Дешифровщик"</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
 <h1>Добро пожаловать</h1>
 
-<div>
-    <p sec:authorise="isFullyAuthenticated()">
+<div sec:authorize="isAnonymous()">
+    <a href="/register">Зарегестрироваться</a>
+    <br>
+    <a href="/login">Войти</a>
+</div>
+
+<div sec:authorize="isAuthenticated()">
+    <p>
         Вас зовут: <span sec:authentication="name"></span>
     </p>
 
-    <a href="/register">Зарегестрироваться</a>
-    <a href="/login">Войти</a>
     <form method="post" th:action="@{/logout}">
         <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
         <input type="submit" value="Выйти">
