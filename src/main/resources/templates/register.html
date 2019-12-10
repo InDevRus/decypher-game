@@ -30,9 +30,11 @@
                     <span class="bar"></span>
                     <label>Повтор пороля</label>
                 </div>
-                <p th:each="error : ${#fields.allErrors()}" th:text="${error}"></p>
+                <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
 
                 <input type="submit" class="button-submit"/>
+
+                <p th:each="error : ${#fields.allErrors()}" th:text="${error}"></p>
             </form>
             <a th:href='@{/}'>Вернуться</a>
         </div>
