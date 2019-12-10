@@ -16,15 +16,15 @@
             <form method="post" th:action="@{/login}">
 
                 <div class="group group-name">
-                    <input type="text" required="required">
+                    <input autofocus id="username-input" name="username" required="required">
                     <span class="bar"></span>
-                    <label>Имя игрока</label>
+                    <label for="username-input">Имя игрока</label>
                 </div>
 
                 <div class="group group-name">
-                    <input type="password" required="required">
+                    <input id="password-input" name="password" required="required" type="password">
                     <span class="bar"></span>
-                    <label>Пароль</label>
+                    <label for="password-input">Пароль</label>
                 </div>
 
 

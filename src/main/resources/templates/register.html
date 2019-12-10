@@ -16,19 +16,20 @@
             <form method="post" th:action="@{/register}" th:object="${player}">
 
                 <div class="group group-name">
-                    <input type="text" th:field="*{nickName}" required="required">
+                    <input id="nickName-input" required="required" th:field="*{nickName}">
                     <span class="bar"></span>
-                    <label>Имя игрока</label>
+                    <label for="nickName-input">Имя игрока</label>
                 </div>
                 <div class="group group-password">
-                    <input type="password" th:field="*{password}" required="required">
+                    <input id="password-input" required="required" th:field="*{password}" type="password">
                     <span class="bar"></span>
-                    <label>Пароль</label>
+                    <label for="password-input">Пароль</label>
                 </div>
                 <div class="group group-password2">
-                    <input type="password" th:field="*{passwordConfirmation}" required="required">
+                    <input id="password-confirmation-input" required="required" th:field="*{passwordConfirmation}"
+                           type="password">
                     <span class="bar"></span>
-                    <label>Повтор пороля</label>
+                    <label for="password-confirmation-input">Повтор пороля</label>
                 </div>
                 <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
 
