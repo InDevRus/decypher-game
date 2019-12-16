@@ -16,7 +16,7 @@ public class Question {
     @GeneratedValue
     private int id;
 
-    @Column(name = "word")
+    @Column
     @Pattern(regexp = "[А-ЯЁа-яё]")
     @Size(min = 4, max = 10)
     private String word;

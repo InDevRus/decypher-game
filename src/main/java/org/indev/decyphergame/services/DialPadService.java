@@ -1,6 +1,6 @@
 package org.indev.decyphergame.services;
 
-import org.indev.decyphergame.dao.api.ResultDAO;
+import org.indev.decyphergame.dao.ResultDAO;
 import org.indev.decyphergame.logic.cyphers.EncryptedQuestion;
 import org.indev.decyphergame.logic.cyphers.Encrypter;
 import org.springframework.beans.factory.annotation.Autowired;

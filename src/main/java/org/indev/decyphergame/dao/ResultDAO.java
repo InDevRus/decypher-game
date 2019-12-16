@@ -1,4 +1,4 @@
-package org.indev.decyphergame.dao.api;
+package org.indev.decyphergame.dao;
 
 import org.indev.decyphergame.models.Question;
 import org.indev.decyphergame.models.Result;

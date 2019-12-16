@@ -1,8 +1,8 @@
 package org.indev.decyphergame.services;
 
-import org.indev.decyphergame.dao.api.PlayerDAO;
-import org.indev.decyphergame.dao.api.QuestionDAO;
-import org.indev.decyphergame.dao.api.ResultDAO;
+import org.indev.decyphergame.dao.PlayerDAO;
+import org.indev.decyphergame.dao.QuestionDAO;
+import org.indev.decyphergame.dao.ResultDAO;
 import org.indev.decyphergame.models.Result;
 import org.indev.decyphergame.models.State;
 import org.springframework.beans.factory.annotation.Autowired;

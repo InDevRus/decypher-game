@@ -1,9 +1,10 @@
 package org.indev.decyphergame.dao.implementations;
 
-import org.indev.decyphergame.dao.api.ResultDAO;
-import org.indev.decyphergame.models.Player;
-import org.indev.decyphergame.models.Question;
-import org.indev.decyphergame.models.Result;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.indev.decyphergame.dao.PlayerDAO;
+import org.indev.decyphergame.dao.ResultDAO;
+import org.indev.decyphergame.models.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,18 +14,34 @@ import java.util.Optional;
 import java.util.Random;
 
 @Repository
-public class ResultDAOImplementation implements ResultDAO {
+class ResultDAOImplementation implements ResultDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
+    private PlayerDAO playerDAO;
+    private JPAQueryFactory queryFactory;
+
+    @Autowired
+    public void setPlayerDAO(PlayerDAO playerDAO) {
+        this.playerDAO = playerDAO;
+    }
+
+    @Autowired
+    public void setQueryFactory(JPAQueryFactory queryFactory) {
+        this.queryFactory = queryFactory;
+    }
+
     @Override
     public Integer countUnansweredQuestions(int playerId) {
-        var count = entityManager.createQuery("select count(question) from Question question " +
-                "left outer join Result result " +
-                "on result.question.id = question.id and result.player.id = :playerId " +
-                "where result is null ", Long.class)
-                .setParameter("playerId", playerId)
-                .getSingleResult();
+        var question = QQuestion.question;
+        var result = QResult.result;
+
+        var count = queryFactory
+                .selectFrom(question)
+                .leftJoin(question.results, result)
+                .on(result.player.id.eq(playerId))
+                .where(result.isNull())
+                .fetchCount();
         return Math.toIntExact(count);
     }
 
@@ -33,24 +50,25 @@ public class ResultDAOImplementation implements ResultDAO {
         var questionsCount = countUnansweredQuestions(playerId);
         var questionNumber = new Random().nextInt(questionsCount);
 
-        return entityManager.createQuery("select question from Question question " +
-                "left outer join Result result " +
-                "on result.question.id = question.id and result.player.id = :playerId " +
-                "where result is null ", Question.class)
-                .setParameter("playerId", playerId)
-                .setFirstResult(questionNumber)
-                .setMaxResults(1)
-                .getResultStream()
-                .findAny();
+        var question = QQuestion.question;
+        var result = QResult.result;
+
+        var selectedQuestion = queryFactory.selectFrom(question)
+                .leftJoin(question.results, result)
+                .where(result.isNull())
+                .offset(questionNumber)
+                .limit(1)
+                .fetchOne();
+        return Optional.ofNullable(selectedQuestion);
     }
 
     @Override
-    public Optional<Question> findUnansweredQuestion(String playerNickName) {
-        var playerId = entityManager.createQuery("select player from Player player " +
-                "where player.nickName = :playerNickName", Player.class)
-                .setParameter("playerNickName", playerNickName)
-                .getSingleResult()
-                .getId();
+    public Optional<Question> findUnansweredQuestion(String nickName) {
+        var playerId = playerDAO
+                .findByNickName(nickName)
+                .map(Player::getId)
+                .orElseThrow();
+
         return findUnansweredQuestion(playerId);
     }
 
