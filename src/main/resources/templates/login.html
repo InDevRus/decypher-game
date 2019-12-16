@@ -3,31 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 <body>
 
-<div>
-    <form method="post" th:action="@{/login}">
-        <h2>Log in</h2>
+<div class="modal">
+    <div class="modal_content">
+        <div class="modal-header">
+            <h1>Вход</h1>
+        </div>
+        <div class="modal-body">
+            <form method="post" th:action="@{/login}">
 
-        <label>
-            <input autofocus name="username" placeholder="Введите имя"/>
-        </label>
+                <div class="group group-name">
+                    <input autofocus id="username-input" name="username" required="required">
+                    <span class="bar"></span>
+                    <label for="username-input">Имя игрока</label>
+                </div>
 
-        <br>
+                <div class="group group-name">
+                    <input id="password-input" name="password" required="required" type="password">
+                    <span class="bar"></span>
+                    <label for="password-input">Пароль</label>
+                </div>
 
-        <label>
-            <input name="password" placeholder="Введите пароль" type="password"/>
-        </label>
 
-        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
-        <input type="submit"/>
+                <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+                <input type="submit" class="button-submit"/>
 
-        <br th:if="${error}">
-        <span th:text="${error}"></span>
-    </form>
+                <br th:if="${error}">
+                <span th:text="${error}"></span>
+            </form>
 
-    <p><a th:href='@{/register}'>Зарегестрироваться</a></p>
+            <!--    <p><a th:href='@{/register}'>Зарегестрироваться</a></p>-->
+            <a th:href='@{/}'>Вернуться</a>
+        </div>
+    </div>
 </div>
 
 </body>
