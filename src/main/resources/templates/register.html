@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <link rel="stylesheet" th:href="@{/css/register.css}">
+</head>
+<body>
+
+<div class="modal">
+    <div class="modal_content">
+        <div class="modal-header">
+            <h1>Регистрация</h1>
+        </div>
+        <div class="modal-body">
+            <form method="post" th:action="@{/register}" th:object="${player}">
+
+                <div class="group group-name">
+                    <input id="nickName-input" required="required" th:field="*{nickName}">
+                    <span class="bar"></span>
+                    <label for="nickName-input">Имя игрока</label>
+                </div>
+                <div class="group group-password">
+                    <input id="password-input" required="required" th:field="*{password}" type="password">
+                    <span class="bar"></span>
+                    <label for="password-input">Пароль</label>
+                </div>
+                <div class="group group-password2">
+                    <input id="password-confirmation-input" required="required" th:field="*{passwordConfirmation}"
+                           type="password">
+                    <span class="bar"></span>
+                    <label for="password-confirmation-input">Повтор пороля</label>
+                </div>
+                <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+
+                <input type="submit" class="button-submit"/>
+
+                <p th:each="error : ${#fields.allErrors()}" th:text="${error}"></p>
+            </form>
+            <a th:href='@{/}'>Вернуться</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
