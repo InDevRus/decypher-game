@@ -1,11 +1,10 @@
 package org.indev.decyphergame.services;
 
-import org.indev.decyphergame.dao.api.PlayerDAO;
-import org.indev.decyphergame.dao.api.ResultDAO;
+import org.indev.decyphergame.dao.PlayerDAO;
 import org.indev.decyphergame.models.Player;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
 import java.util.Optional;
 
 @Service

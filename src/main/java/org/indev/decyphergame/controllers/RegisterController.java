@@ -38,6 +38,7 @@ public class RegisterController {
         this.securityService = securityService;
     }
 
+    @SuppressWarnings("SameReturnValue")
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("player", new Player());
@@ -54,12 +55,6 @@ public class RegisterController {
 
         playerService.save(player);
 
-        /*
-        TODO: Избавиться от авто-логина.
-        Авто-логин, как я (Ваня) понял, является большущим анти-паттерном и
-        приносит больше проблем, чем пользы. В качестве бонуса мы практически
-        полностью избавимся от уродливого инфраструктурного кода.
-        */
         securityService.autoLogin(player.getNickName(), player.getPasswordConfirmation());
 
         return "redirect:/";

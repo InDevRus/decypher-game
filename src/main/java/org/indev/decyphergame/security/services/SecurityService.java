@@ -1,7 +1,9 @@
 package org.indev.decyphergame.security.services;
 
+import java.util.Optional;
+
 public interface SecurityService {
-    String findLoggedInUsername();
+    Optional<String> getAuthorizedNickName();
 
     void autoLogin(String username, String password);
 }

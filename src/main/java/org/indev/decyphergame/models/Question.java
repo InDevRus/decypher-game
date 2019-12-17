@@ -36,7 +36,7 @@ public class Question {
     private Date updatedAt;
 
     @OneToMany(mappedBy = "question")
-    private Set<Result> results;
+    private Set<Encryption> encryptions;
 
     public Question() {
     }

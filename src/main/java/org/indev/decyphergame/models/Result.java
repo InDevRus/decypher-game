@@ -1,6 +1,7 @@
 package org.indev.decyphergame.models;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.indev.decyphergame.models.values.ResultValue;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,63 +13,27 @@ public class Result {
     @GeneratedValue
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "player_id")
-    private Player player;
-
-    @ManyToOne
-    @JoinColumn(name = "question_id")
-    private Question question;
-
-    @Column(updatable = false, nullable = false)
-    private String cypher;
-
-    @Column(nullable = false)
+    @Column(updatable = false)
     private String answer;
+
+    @Column(nullable = false, updatable = false)
+    @Enumerated(EnumType.STRING)
+    private ResultValue resultValue;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    private Encryption encryption;
+
+    @Transient
+    private int encryptionId;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
+    @Column(updatable = false)
     private Date createdAt;
-
-    @Column(updatable = false, nullable = false)
-    @Enumerated(EnumType.STRING)
-    private State state;
 
     public int getId() {
         return id;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-    public Question getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
-
-    public State getState() {
-        return state;
-    }
-
-    public void setState(State state) {
-        this.state = state;
-    }
-
-    public String getCypher() {
-        return cypher;
-    }
-
-    public void setCypher(String cypher) {
-        this.cypher = cypher;
     }
 
     public String getAnswer() {
@@ -77,5 +42,29 @@ public class Result {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public ResultValue getResultValue() {
+        return resultValue;
+    }
+
+    public void setResultValue(ResultValue resultValue) {
+        this.resultValue = resultValue;
+    }
+
+    public Encryption getEncryption() {
+        return encryption;
+    }
+
+    public void setEncryption(Encryption encryption) {
+        this.encryption = encryption;
+    }
+
+    public int getEncryptionId() {
+        return encryptionId;
+    }
+
+    public void setEncryptionId(int encryptionId) {
+        this.encryptionId = encryptionId;
     }
 }

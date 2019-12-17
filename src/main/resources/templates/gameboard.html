@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Игра "Дешифровщик"</title>
+</head>
+<body>
+
+<div>
+    Вас зовут: <span sec:authentication="name"></span>
+</div>
+
+<div>
+    <a href="/play/atbash">Шифр Атбаш</a>
+    <a href="/play/caesar">Шифр Цезаря</a>
+    <a href="/play/dialPad">Телефонный шифр</a>
+</div>
+
+</body>
+</html>

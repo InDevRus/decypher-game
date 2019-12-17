@@ -1,4 +1,4 @@
-package org.indev.decyphergame.models;
+package org.indev.decyphergame.models.values;
 
 public enum RoleValue {
     USER {

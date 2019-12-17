@@ -1,6 +1,7 @@
 package org.indev.decyphergame.security.services;
 
 
+import org.indev.decyphergame.dao.PlayerDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,11 +10,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class SecurityServiceImpl implements SecurityService {
     private AuthenticationManager authenticationManager;
-
     private UserDetailsService userDetailsService;
+    private PlayerDAO playerDAO;
 
     @Autowired
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
@@ -25,14 +28,20 @@ public class SecurityServiceImpl implements SecurityService {
         this.userDetailsService = userDetailsService;
     }
 
-    @Override
-    public String findLoggedInUsername() {
-        Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
-        if (userDetails instanceof UserDetails) {
-            return ((UserDetails) userDetails).getUsername();
+    @Autowired
+    public void setPlayerDAO(PlayerDAO playerDAO) {
+        this.playerDAO = playerDAO;
+    }
+
+    public Optional<String> getAuthorizedNickName() {
+        var nickName = Optional.<String>empty();
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            nickName = Optional.of(((UserDetails) principal).getUsername());
         }
 
-        return null;
+        return nickName;
     }
 
     @Override

@@ -26,8 +26,8 @@ public class Player {
     @Transient
     private String passwordConfirmation;
 
-    @OneToMany(mappedBy = "player")
-    private Set<Result> results;
+    @OneToMany(mappedBy = "player", fetch = FetchType.LAZY)
+    private Set<Encryption> encryptions;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)

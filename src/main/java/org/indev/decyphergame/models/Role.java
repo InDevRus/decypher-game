@@ -1,5 +1,7 @@
 package org.indev.decyphergame.models;
 
+import org.indev.decyphergame.models.values.RoleValue;
+
 import javax.persistence.*;
 import java.util.Set;
 

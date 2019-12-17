@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Optional;
 
 @Repository
 class QuestionDAOImplementation implements QuestionDAO {
@@ -13,7 +14,7 @@ class QuestionDAOImplementation implements QuestionDAO {
     private EntityManager entityManager;
 
     @Override
-    public Question findById(int questionId) {
-        return entityManager.find(Question.class, questionId);
+    public Optional<Question> find(int questionId) {
+        return Optional.ofNullable(entityManager.find(Question.class, questionId));
     }
 }

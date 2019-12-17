@@ -3,7 +3,23 @@ from "result"
 where true;
 
 delete
+from "encryption"
+where true;
+
+delete
+from "player_roles"
+where true;
+
+delete
+from "player"
+where true;
+
+delete
 from "question"
+where true;
+
+delete
+from "role"
 where true;
 
 insert into "question"
@@ -86,5 +102,7 @@ values (1, 'Музыкальный жанр', 'Джаз', now(), now()),
        (77, 'Часть тела', 'Колено', now(), now()),
        (78, 'Часть тела', 'Лицо', now(), now());
 
---insert into result (id, created_at, state, player_id, question_id, cypher)
---values (-1, now(), 'SUCCESS', 1, 1, 'ЕЗБИ');
+
+insert into "role" (id, role_value)
+values (1, 'USER'),
+       (2, 'MODERATOR');

@@ -1,39 +1,45 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="ru"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Игра "Дешифровщик"</title>
 </head>
 <body>
-<div>
-    <p th:text="|Вас зовут: ${result.getPlayer().getNickName()}|"></p>
+<div th:object="${result}">
+    <p>
+        Вас зовут: <span sec:authentication="name">.</span>
+    </p>
 
     <p>
         Вопрос:
         <br>
-        <span th:text="${result.getQuestion().getHint()}"></span>
-        <span th:text="${result.getCypher()}"></span>
+        <span th:text="*{encryption.question.hint}"></span>
+        <span th:text="*{encryption.cypher}"></span>
     </p>
 
     <p>
         Правильный ответ:
         <br>
-        <span th:text="${result.getQuestion().getWord()}"></span>
+        <span th:text="*{encryption.question.word}"></span>
     </p>
 
     <p>
         Ваш ответ:
         <br>
-        <span th:text="${result.getAnswer()}"></span>
+        <span th:text="*{answer}"></span>
     </p>
 
     <p>
         Ваш результат:
         <br>
-        <span th:class="${result.getState().toString()}" th:text="${result.getState().getMessage()}"></span>
+        <span th:class="*{resultValue.cssClass()}"
+              th:text="*{resultValue.message}">
+        </span>
     </p>
 
-    <a th:href="@{/(nickName=${nickName})}">Вернуться на главную</a>
+    <a href="/">Вернуться на главную</a>
 </div>
 </body>
 </html>

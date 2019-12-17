@@ -6,33 +6,27 @@
 </head>
 <body>
 
-<p th:text="${encrypted.getQuestion().getHint()}"></p>
+<p></p>
 
-<p th:text="${encrypted.getCypher()}"></p>
+<p>Тип шифра: <span th:text="${encryption.cypherType.getValue()}"></span>.</p>
 
+<p th:text="${encryption.question.hint}"></p>
 
-<form action="/result/submit" method="post">
+<p th:text="${encryption.cypher}"></p>
+
+<form method="post" th:action="@{/result/submit}" th:object="${result}">
     <label>
-        <input name="answer">
+        <input th:field="*{answer}">
     </label>
 
     <label>
-        <input hidden name="questionId" th:value="${encrypted.getQuestion().getId()}"/>
-    </label>
-
-    <label>
-        <input hidden name="nickName" th:value="${nickName}"/>
-    </label>
-
-    <label>
-        <input hidden name="cypheredWord" th:value="${encrypted.getCypher()}"/>
+        <input hidden name="encryptionId" th:value="${encryption.id}">
     </label>
 
     <label>
         <input type="submit" value="Ответить"/>
     </label>
 </form>
-
 
 </body>
 </html>

@@ -1,9 +1,9 @@
 package org.indev.decyphergame.security.services;
 
-import org.indev.decyphergame.dao.api.PlayerDAO;
-import org.indev.decyphergame.dao.api.RoleDAO;
+import org.indev.decyphergame.dao.PlayerDAO;
+import org.indev.decyphergame.dao.RoleDAO;
 import org.indev.decyphergame.models.Player;
-import org.indev.decyphergame.models.RoleValue;
+import org.indev.decyphergame.models.values.RoleValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

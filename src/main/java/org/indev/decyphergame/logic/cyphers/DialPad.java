@@ -1,6 +1,5 @@
 package org.indev.decyphergame.logic.cyphers;
 
-import org.indev.decyphergame.models.Question;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -15,7 +14,6 @@ import java.util.stream.Collectors;
 
 @Configuration
 public class DialPad implements Encrypter {
-
     @Bean
     @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
     public DialPad createDialPad() {
@@ -30,13 +28,11 @@ public class DialPad implements Encrypter {
     }
 
     @Override
-    public EncryptedQuestion encrypt(Question question) {
-        var cypher = Arrays.stream(question.getWord().split(""))
+    public String encrypt(String question) {
+        return Arrays.stream(question.toUpperCase().split(""))
                 .map(this.letterMapper)
                 .map(Object::toString)
                 .collect(Collectors.joining());
-
-        return new EncryptedQuestion(question, cypher);
     }
 
     private static final Map<Integer, List<String>> dialPad = Map.of(

@@ -1,7 +1,6 @@
 package org.indev.decyphergame.logic.cyphers;
 
 import org.indev.decyphergame.logic.Alphabet;
-import org.indev.decyphergame.models.Question;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -28,13 +27,11 @@ public class Caesar implements Encrypter {
     }
 
     @Override
-    public EncryptedQuestion encrypt(Question question) {
-        var cypher = Arrays.stream(question.getWord().split(""))
+    public String encrypt(String question) {
+        return Arrays.stream(question.split(""))
                 .map(Alphabet::numberByLetter)
                 .map(this.letterMapper)
                 .map(Alphabet::letterByNumber)
                 .collect(Collectors.joining());
-
-        return new EncryptedQuestion(question, cypher);
     }
 }

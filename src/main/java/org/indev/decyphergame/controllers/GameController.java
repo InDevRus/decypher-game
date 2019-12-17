@@ -1,68 +1,82 @@
 package org.indev.decyphergame.controllers;
 
-import org.indev.decyphergame.services.AtbashService;
-import org.indev.decyphergame.services.CaesarService;
-import org.indev.decyphergame.services.DialPadService;
+import org.indev.decyphergame.models.Result;
+import org.indev.decyphergame.security.services.SecurityService;
+import org.indev.decyphergame.services.EncrypterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/play")
 class GameController {
-    private AtbashService atbashService;
-    private CaesarService caesarService;
-    private DialPadService dialPadService;
+    private EncrypterService atbashService;
+    private EncrypterService caesarService;
+    private EncrypterService dialPadService;
+
+    private SecurityService securityService;
+
+    @GetMapping("/dialPad")
+    public String dialPad(Model model) {
+        return render(model, dialPadService);
+    }
+
+    @GetMapping("/atbash")
+    public String atbash(Model model) {
+        return render(model, atbashService);
+    }
+
+    @GetMapping("/caesar")
+    public String caesar(Model model) {
+        return render(model, caesarService);
+    }
+
+    @GetMapping("/")
+    public String gameboard(Model model) {
+        var playerNickName = securityService.getAuthorizedNickName().orElseThrow();
+        return atbashService.getUnclosedQuestion(playerNickName)
+                .map(encryption -> {
+                    model.addAttribute("encryption", encryption);
+                    model.addAttribute("result", new Result());
+                    return "game";
+                })
+                .orElse("gameboard");
+    }
+
+    private String render(Model model, EncrypterService encrypterService) {
+        var playerNickName = securityService.getAuthorizedNickName().orElseThrow();
+        return encrypterService.chooseQuestion(playerNickName)
+                .map(encryption -> {
+                    model.addAttribute("encryption", encryption);
+                    model.addAttribute("result", new Result());
+                    return "game";
+                })
+                .orElse("noQuestion");
+    }
 
     @Autowired
-    public void setAtbashService(AtbashService atbashService) {
+    @Qualifier("atbashService")
+    public void setAtbashService(EncrypterService atbashService) {
         this.atbashService = atbashService;
     }
 
     @Autowired
-    public void setCaesarService(CaesarService caesarService) {
+    @Qualifier("caesarService")
+    public void setCaesarService(EncrypterService caesarService) {
         this.caesarService = caesarService;
     }
 
     @Autowired
-    public void setDialPadService(DialPadService dialPadService) {
+    @Qualifier("dialPadService")
+    public void setDialPadService(EncrypterService dialPadService) {
         this.dialPadService = dialPadService;
     }
 
-    @GetMapping("/dialPad")
-    public String dialPad(@RequestParam("nickName") String nickName, Model model) {
-        var encrypted = dialPadService.chooseQuestion(nickName);
-        model.addAttribute("nickName", nickName);
-        if (encrypted.isPresent()) {
-            model.addAttribute("encrypted", encrypted.get());
-            return "game";
-        }
-        return "noQuestion";
-    }
-
-    @GetMapping("/atbash")
-    public String atbash(@RequestParam("nickName") String nickName, Model model) {
-        var encrypted = atbashService.chooseQuestion(nickName);
-        model.addAttribute("nickName", nickName);
-        if (encrypted.isPresent()) {
-            model.addAttribute("encrypted", encrypted.get());
-            return "game";
-        }
-        model.addAttribute("nickName", nickName);
-        return "noQuestion";
-    }
-
-    @GetMapping("/caesar")
-    public String caesar(@RequestParam("nickName") String nickName, Model model) {
-        var encrypted = caesarService.chooseQuestion(nickName);
-        model.addAttribute("nickName", nickName);
-        if (encrypted.isPresent()) {
-            model.addAttribute("encrypted", encrypted.get());
-            return "game";
-        }
-        return "noQuestion";
+    @Autowired
+    public void setSecurityService(SecurityService securityService) {
+        this.securityService = securityService;
     }
 }
