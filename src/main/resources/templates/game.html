@@ -27,7 +27,7 @@
 
 <p>Тип шифра: <span th:text="${encryption.cypherType.getValue()}"></span>.</p>
 
-<p th:text="${encryption.question.hint}"></p>
+<p th:text="${encryption.question.description}"></p>
 
 <div class="cypher">
     <th:block th:each="letter, letterStatus: ${encryption.cypher.split('')}">

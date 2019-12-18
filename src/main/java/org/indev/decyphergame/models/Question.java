@@ -10,20 +10,20 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"word", "hint"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"word", "description"}))
 public class Question {
     @Id
     @GeneratedValue
     private int id;
 
-    @Column
+    @Column(nullable = false)
     @Pattern(regexp = "[А-ЯЁа-яё]")
     @Size(min = 4, max = 10)
     private String word;
 
     @Column(nullable = false)
     @Pattern(regexp = "[А-ЯЁ][а-яё]+( [а-яё]+)")
-    private String hint;
+    private String description;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -57,7 +57,7 @@ public class Question {
         this.word = word;
     }
 
-    public String getHint() {
-        return hint;
+    public String getDescription() {
+        return description;
     }
 }

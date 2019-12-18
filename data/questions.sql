@@ -23,7 +23,7 @@ from "role"
 where true;
 
 insert into "question"
-    (id, hint, word, created_at, updated_at)
+    (id, description, word, created_at, updated_at)
 values (1, 'Музыкальный жанр', 'Джаз', now(), now()),
        (2, 'Музыкальный жанр', 'Кантри', now(), now()),
        (3, 'Музыкальный жанр', 'Эстрада', now(), now()),
