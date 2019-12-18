@@ -4,15 +4,41 @@
     <meta charset="UTF-8">
     <title>Игра "Дешифровщик"</title>
 </head>
-<body>
 
-<p></p>
+<style>
+    .cypher {
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .cypher > div, .cypher > div > div {
+        margin-right: 5px;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        line-height: 20px;
+        outline: 1px black solid;
+        position: relative;
+    }
+</style>
+
+<body>
 
 <p>Тип шифра: <span th:text="${encryption.cypherType.getValue()}"></span>.</p>
 
 <p th:text="${encryption.question.hint}"></p>
 
-<p th:text="${encryption.cypher}"></p>
+<div class="cypher">
+    <th:block th:each="letter, letterStatus: ${encryption.cypher.split('')}">
+        <div>
+            <span th:text="${letter}"></span>
+            <div style="position: absolute; top: 25px" th:if="${letterStatus.index == 4}">?</div>
+        </div>
+    </th:block>
+</div>
+
+<p></p>
 
 <form method="post" th:action="@{/result/submit}" th:object="${result}">
     <label>
