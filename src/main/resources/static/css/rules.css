@@ -1,0 +1,12 @@
+.points-table {
+    margin: auto;
+}
+
+.points-table td:first-child {
+    background-color: lime;
+}
+
+.points-table td:last-child,
+.points-table tr:last-child tr:nth-child(2) {
+    background-color: tomato;
+}

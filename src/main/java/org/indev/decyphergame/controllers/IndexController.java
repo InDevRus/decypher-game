@@ -22,4 +22,9 @@ class IndexController {
 
         return "login";
     }
+
+    @GetMapping("/rules")
+    public String rules() {
+        return "rules";
+    }
 }
