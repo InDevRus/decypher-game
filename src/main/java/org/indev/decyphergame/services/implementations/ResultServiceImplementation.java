@@ -15,14 +15,28 @@ class ResultServiceImplementation implements ResultService {
     private EncryptionDAO encryptionDAO;
     private ResultDAO resultDAO;
 
+    @Override
     public Result submitAnswer(String playerNickName, Result result) {
-        var encryption = encryptionDAO.find(result.getEncryptionId()).orElseThrow();
+        var encryption = encryptionDAO.findUnclosedQuestion(playerNickName).orElseThrow();
         result.setEncryption(encryption);
 
         var resultValue = encryption.getQuestion().getWord().equalsIgnoreCase(result.getAnswer())
                 ? ResultValue.SUCCESS
                 : ResultValue.WRONG_ANSWER;
         result.setResultValue(resultValue);
+
+        resultDAO.persist(result);
+
+        return result;
+    }
+
+    @Override
+    public Result giveUp(String playerNickName) {
+        var encryption = encryptionDAO.findUnclosedQuestion(playerNickName).orElseThrow();
+
+        var result = new Result();
+        result.setEncryption(encryption);
+        result.setResultValue(ResultValue.GIVE_UP);
 
         resultDAO.persist(result);
 

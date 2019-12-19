@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+<!--@thymesVar id="encryption" type="org.indev.decyphergame.models.Encryption"-->
+<div th:fragment="cypher()">
+    <p>Тип шифра: <span th:text="${encryption.cypherType.getValue()}"></span>.</p>
+
+    <p th:if="${encryption}" th:text="${encryption.question.description}"></p>
+
+    <div class="cypher">
+        <th:block th:each="letter, letterStatus: ${encryption.cypher.split('')}">
+            <div>
+                <span th:text="${letter}"></span>
+                <div style="position: absolute; top: 25px"
+                     th:if="${letterStatus.index == encryption.hintPosition}"
+                     th:text="${encryption.question.word.charAt(encryption.hintPosition)}">
+                </div>
+            </div>
+        </th:block>
+    </div>
+
+</div>
+</body>
+</html>

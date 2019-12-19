@@ -3,11 +3,13 @@ package org.indev.decyphergame.controllers;
 import org.indev.decyphergame.models.Result;
 import org.indev.decyphergame.security.services.SecurityService;
 import org.indev.decyphergame.services.EncrypterService;
+import org.indev.decyphergame.services.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -17,7 +19,20 @@ class GameController {
     private EncrypterService caesarService;
     private EncrypterService dialPadService;
 
+    private GameService gameService;
     private SecurityService securityService;
+
+    @GetMapping("/")
+    public String gameboard(Model model) {
+        var playerNickName = securityService.getAuthorizedNickName().orElseThrow();
+        return gameService.getUnclosedQuestion(playerNickName)
+                .map(encryption -> {
+                    model.addAttribute("encryption", encryption);
+                    model.addAttribute("result", new Result());
+                    return "game";
+                })
+                .orElse("gameboard");
+    }
 
     @GetMapping("/dialPad")
     public String dialPad(Model model) {
@@ -34,16 +49,12 @@ class GameController {
         return render(model, caesarService);
     }
 
-    @GetMapping("/")
-    public String gameboard(Model model) {
+    @PostMapping("/hint")
+    public String hint() {
         var playerNickName = securityService.getAuthorizedNickName().orElseThrow();
-        return atbashService.getUnclosedQuestion(playerNickName)
-                .map(encryption -> {
-                    model.addAttribute("encryption", encryption);
-                    model.addAttribute("result", new Result());
-                    return "game";
-                })
-                .orElse("gameboard");
+        gameService.assignRandomHint(playerNickName);
+
+        return "redirect:/play/";
     }
 
     private String render(Model model, EncrypterService encrypterService) {
@@ -73,6 +84,11 @@ class GameController {
     @Qualifier("dialPadService")
     public void setDialPadService(EncrypterService dialPadService) {
         this.dialPadService = dialPadService;
+    }
+
+    @Autowired
+    public void setGameService(GameService gameService) {
+        this.gameService = gameService;
     }
 
     @Autowired

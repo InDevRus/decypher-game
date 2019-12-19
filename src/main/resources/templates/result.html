@@ -6,11 +6,32 @@
     <meta charset="UTF-8">
     <title>Игра "Дешифровщик"</title>
 </head>
+
+<style>
+    .cypher {
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .cypher > div, .cypher > div > div {
+        margin-right: 5px;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        line-height: 20px;
+        outline: 1px black solid;
+        position: relative;
+    }
+</style>
+
 <body>
 <div th:object="${result}">
     <p>
         Вас зовут: <span sec:authentication="name">.</span>
     </p>
+
+    <div th:replace="/partials/cypher :: cypher(encryption=*{encryption})"></div>
 
     <p>
         Вопрос:
@@ -25,18 +46,23 @@
         <span th:text="*{encryption.question.word}"></span>
     </p>
 
-    <p>
+    <p th:unless="*{encryption.hintPosition == null}">
         Ваш ответ:
         <br>
         <span th:text="*{answer}"></span>
     </p>
 
     <p>
-        Ваш результат:
+        Ваш результат: <span th:class="*{resultValue.cssClass()}" th:text="*{resultValue.message}"></span>
         <br>
-        <span th:class="*{resultValue.cssClass()}"
-              th:text="*{resultValue.message}">
+        <th:block th:if="*{pointsAmount == 0}">
+            Вы не набрали, но и не потеряли очки.
+        </th:block>
+        <th:block th:unless="*{pointsAmount == 0}">
+            Вы <span th:text="*{pointsAmount} > 0 ? 'набрали' : 'потеряли' + ': '"></span>
+            <span th:text="${T(Math).abs(result.pointsAmount)}">
         </span>
+        </th:block>
     </p>
 
     <a href="/">Вернуться на главную</a>

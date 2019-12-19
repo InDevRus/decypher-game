@@ -25,18 +25,15 @@
 
 <body>
 
-<p>Тип шифра: <span th:text="${encryption.cypherType.getValue()}"></span>.</p>
+<div th:replace="/partials/cypher :: cypher(encryption=*{encryption})"></div>
 
-<p th:text="${encryption.question.description}"></p>
+<p></p>
 
-<div class="cypher">
-    <th:block th:each="letter, letterStatus: ${encryption.cypher.split('')}">
-        <div>
-            <span th:text="${letter}"></span>
-            <div style="position: absolute; top: 25px" th:if="${letterStatus.index == 4}">?</div>
-        </div>
-    </th:block>
-</div>
+<form method="post" th:action="@{/play/hint}" th:if="${encryption.hintPosition == null}">
+    <label>
+        <input type="submit" value="Взять подсказку">
+    </label>
+</form>
 
 <p></p>
 
@@ -46,11 +43,15 @@
     </label>
 
     <label>
-        <input hidden name="encryptionId" th:value="${encryption.id}">
-    </label>
-
-    <label>
         <input type="submit" value="Ответить"/>
+    </label>
+</form>
+
+<p></p>
+
+<form method="post" th:action="@{/result/giveUp}">
+    <label>
+        <input type="submit" value="Сдаться">
     </label>
 </form>
 

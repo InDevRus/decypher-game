@@ -5,6 +5,7 @@ import org.indev.decyphergame.models.values.ResultValue;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table
@@ -20,12 +21,12 @@ public class Result {
     @Enumerated(EnumType.STRING)
     private ResultValue resultValue;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @Column(updatable = false, nullable = false)
+    private Integer pointsAmount;
+
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn
     private Encryption encryption;
-
-    @Transient
-    private int encryptionId;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -50,6 +51,22 @@ public class Result {
 
     public void setResultValue(ResultValue resultValue) {
         this.resultValue = resultValue;
+
+        var hintRequested = Objects.nonNull(Objects.requireNonNull(encryption).getHintPosition());
+        switch (resultValue) {
+            case SUCCESS: {
+                pointsAmount = hintRequested ? 1 : 3;
+                break;
+            }
+            case WRONG_ANSWER: {
+                pointsAmount = hintRequested ? -3 : -2;
+                break;
+            }
+            case GIVE_UP: {
+                pointsAmount = hintRequested ? -1 : 0;
+                break;
+            }
+        }
     }
 
     public Encryption getEncryption() {
@@ -60,11 +77,7 @@ public class Result {
         this.encryption = encryption;
     }
 
-    public int getEncryptionId() {
-        return encryptionId;
-    }
-
-    public void setEncryptionId(int encryptionId) {
-        this.encryptionId = encryptionId;
+    public Integer getPointsAmount() {
+        return pointsAmount;
     }
 }

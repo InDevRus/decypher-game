@@ -41,20 +41,12 @@ public class Question {
     public Question() {
     }
 
-    public Question(String word) {
-        this.word = word;
-    }
-
     public int getId() {
         return id;
     }
 
     public String getWord() {
-        return word;
-    }
-
-    public void setWord(String word) {
-        this.word = word;
+        return word.toUpperCase();
     }
 
     public String getDescription() {

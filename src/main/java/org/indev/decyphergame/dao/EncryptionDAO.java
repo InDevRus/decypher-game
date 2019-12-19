@@ -13,6 +13,8 @@ public interface EncryptionDAO {
 
     void persist(Encryption encryption);
 
+    void merge(Encryption encryption);
+
     Optional<Encryption> find(Player player, Question question);
 
     Optional<Encryption> find(int encryptionId);

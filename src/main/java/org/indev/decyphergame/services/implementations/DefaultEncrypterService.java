@@ -40,11 +40,6 @@ abstract class DefaultEncrypterService implements EncrypterService {
                 .or(() -> encryptionDAO.chooseUnansweredQuestion(playerNickName).map(encryptQuestion));
     }
 
-    @Override
-    public final Optional<Encryption> getUnclosedQuestion(String playerNickName) {
-        return encryptionDAO.findUnclosedQuestion(playerNickName);
-    }
-
     @Autowired
     void setEncryptionDAO(EncryptionDAO encryptionDAO) {
         this.encryptionDAO = encryptionDAO;

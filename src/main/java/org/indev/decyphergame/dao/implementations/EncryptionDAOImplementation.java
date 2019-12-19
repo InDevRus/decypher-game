@@ -66,6 +66,12 @@ class EncryptionDAOImplementation implements EncryptionDAO {
         entityManager.persist(encryption);
     }
 
+    @Transactional
+    @Override
+    public void merge(Encryption encryption) {
+        entityManager.merge(encryption);
+    }
+
     public Optional<Encryption> find(Player player, Question question) {
         var qEncryption = QEncryption.encryption;
 

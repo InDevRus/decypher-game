@@ -8,4 +8,6 @@ public interface ResultService {
     Result submitAnswer(String playerNickName, Result result);
 
     Optional<Result> getResult(String playerNickName, int questionId);
+
+    Result giveUp(String playerNickName);
 }

@@ -6,6 +6,4 @@ import java.util.Optional;
 
 public interface EncrypterService {
     Optional<Encryption> chooseQuestion(String playerNickName);
-
-    Optional<Encryption> getUnclosedQuestion(String playerNickName);
 }

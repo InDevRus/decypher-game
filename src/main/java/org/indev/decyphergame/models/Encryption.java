@@ -4,6 +4,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.indev.decyphergame.models.values.CypherType;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.Date;
 
 @Entity
@@ -26,6 +28,11 @@ public class Encryption {
 
     @Column(updatable = false, nullable = false)
     private CypherType cypherType;
+
+    @PositiveOrZero
+    @Max(10)
+    @Column
+    private Integer hintPosition;
 
     @OneToOne(mappedBy = "encryption")
     private Result result;
@@ -69,5 +76,21 @@ public class Encryption {
 
     public void setCypherType(CypherType cypherType) {
         this.cypherType = cypherType;
+    }
+
+    public Integer getHintPosition() {
+        return hintPosition;
+    }
+
+    public void setHintPosition(int hintPosition) {
+        this.hintPosition = hintPosition;
+    }
+
+    public Result getResult() {
+        return result;
+    }
+
+    public void setResult(Result result) {
+        this.result = result;
     }
 }

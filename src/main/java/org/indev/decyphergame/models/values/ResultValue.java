@@ -1,30 +1,23 @@
 package org.indev.decyphergame.models.values;
 
 public enum ResultValue {
-    SUCCESS {
-        @Override
-        public String getMessage() {
-            return "Правильный ответ";
-        }
+    SUCCESS("Правильный ответ", "success"),
+    WRONG_ANSWER("Неверный ответ", "wrong-answer"),
+    GIVE_UP("Вы сдались", "gave-up");
 
-        @Override
-        public String cssClass() {
-            return "success";
-        }
-    },
-    WRONG_ANSWER {
-        @Override
-        public String getMessage() {
-            return "Неверный ответ";
-        }
+    private String message;
+    private String cssClass;
 
-        @Override
-        public String cssClass() {
-            return "wrong-answer";
-        }
-    };
+    ResultValue(String message, String cssClass) {
+        this.message = message;
+        this.cssClass = cssClass;
+    }
 
-    public abstract String getMessage();
+    public String getMessage() {
+        return this.message;
+    }
 
-    public abstract String cssClass();
+    public String cssClass() {
+        return this.cssClass;
+    }
 }

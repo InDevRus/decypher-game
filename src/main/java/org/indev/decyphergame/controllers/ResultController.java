@@ -21,8 +21,17 @@ class ResultController {
         var playerNickName = securityService.getAuthorizedNickName().orElseThrow();
         result = resultService.submitAnswer(playerNickName, result);
 
-        return MessageFormat.format("redirect:/result/get?questionId={0}",
-                result.getEncryption().getQuestion().getId());
+        var redirection = "redirect:/result/get?questionId={0}";
+        return MessageFormat.format(redirection, result.getEncryption().getQuestion().getId());
+    }
+
+    @PostMapping("/giveUp")
+    public String giveUp() {
+        var playerNickName = securityService.getAuthorizedNickName().orElseThrow();
+        var result = resultService.giveUp(playerNickName);
+        var redirection = "redirect:/result/get?questionId={0}";
+
+        return MessageFormat.format(redirection, result.getEncryption().getQuestion().getId());
     }
 
     @GetMapping("/get")
