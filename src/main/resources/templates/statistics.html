@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Статистика</title>
+</head>
+<body>
+
+<div class="modal">
+    <div class="modal_content">
+        <div class="modal-header">
+            <h1>Статистика</h1>
+        </div>
+
+        <form method="get" th:action="@{/statistics}">
+            <label>
+                <input type="date" th:name="date">
+            </label>
+            <label>
+                <input type="submit" value="Статистика по дате">
+            </label>
+        </form>
+
+        <div class="modal-body">
+            <table>
+                <tr>
+                    <th>Игрок</th>
+                    <th>Очки</th>
+                </tr>
+                <tr th:if="${scores.empty}">
+                    <td colspan="2">Нет результатов</td>
+                </tr>
+                <tr th:each="score : ${scores}">
+                    <td><span th:text="${score.player.nickName}">Игрок</span></td>
+                    <td><span th:text="${score.score}">Очки</span></td>
+                </tr>
+            </table>
+            <a th:href='@{/}'>Вернуться</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

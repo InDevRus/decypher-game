@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -25,6 +26,7 @@ public class Player {
 
     @Transient
     private String passwordConfirmation;
+    // TODO So, I've heard, this variable is always null, and just sucks in general, and kicks puppies.
 
     @OneToMany(mappedBy = "player", fetch = FetchType.LAZY)
     private Set<Encryption> encryptions;
@@ -41,6 +43,9 @@ public class Player {
 
     @ManyToMany
     private Set<Role> roles = new HashSet<>();
+
+    @Transient
+    private Integer score;
 
     public Player() {
     }

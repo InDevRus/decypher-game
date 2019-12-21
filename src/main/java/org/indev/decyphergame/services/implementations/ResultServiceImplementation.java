@@ -2,12 +2,15 @@ package org.indev.decyphergame.services.implementations;
 
 import org.indev.decyphergame.dao.EncryptionDAO;
 import org.indev.decyphergame.dao.ResultDAO;
+import org.indev.decyphergame.models.Player;
 import org.indev.decyphergame.models.Result;
 import org.indev.decyphergame.models.values.ResultValue;
 import org.indev.decyphergame.services.ResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,6 +44,18 @@ class ResultServiceImplementation implements ResultService {
         resultDAO.persist(result);
 
         return result;
+    }
+
+    @Override
+    public List<Result> getResultsByPlayer(Player player, Optional<Date> date) {
+        // UNUSED
+        return resultDAO.getByPlayer(player.getNickName(), date);
+    }
+
+    @Override
+    public List<Result> getAllResults(Optional<Date> date) {
+        // UNUSED
+        return resultDAO.getAll(date);
     }
 
     public Optional<Result> getResult(String playerNickName, int questionId) {

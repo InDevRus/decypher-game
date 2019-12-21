@@ -2,9 +2,12 @@ package org.indev.decyphergame.services;
 
 import org.indev.decyphergame.dao.PlayerDAO;
 import org.indev.decyphergame.models.Player;
+import org.indev.decyphergame.models.wrappers.PlayerScore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,5 +21,15 @@ public class PlayerService {
 
     public Optional<Player> getPlayer(String nickName) {
         return playerDAO.findByNickName(nickName);
+    }
+
+    public Integer getTotalScore(String nickName, Optional<Date> date)
+    { // Date argument isn't a given. Look inside playerDAO.getTotalScore to see if it's still being debated.
+        return playerDAO.getTotalScore(nickName, date);
+    }
+
+    public List<PlayerScore> getAllScores(Optional<Date> date)
+    {
+        return playerDAO.getAllScores(date);
     }
 }
