@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль</title>
+</head>
+
+<body>
+<div class="modal">
+    <div class="modal_content">
+        <div class="modal-header">
+            <h1>Профиль</h1>
+        </div>
+        <div class="modal-body">
+            <p>
+                <span sec:authentication="name"></span>
+            </p>
+            <p>
+                Количество очков: <span th:text="${totalScore}"></span>
+            </p>
+            <p>
+                Вопросов отвечено: <span th:text="${answerCount}"></span>
+            </p>
+
+            <table>
+                <tr>
+                    <th>Вопрос</th>
+                    <th>Ответ</th>
+                    <th>Результат</th>
+                    <th>Правильный ответ</th>
+                    <th>Очки</th>
+                    <th>Дата</th>
+                </tr>
+                <tr th:if="${results.empty}">
+                    <td colspan="3">Нет результатов</td>
+                </tr>
+                <tr th:each="result : ${results}">
+                    <td><span th:text="${result.encryption.cypher}">Вопрос</span></td>
+                    <td><span th:text="${result.answer}">Ответ</span></td>
+                    <td><span th:text="${result.resultValue.message}">Результат</span></td>
+                    <td><span th:text="${result.encryption.question.word}">Правильный ответ</span></td>
+                    <td><span th:text="${result.pointsAmount}">Очки</span></td>
+                    <td><span th:text="${result.createdAt}">Дата</span></td>
+                </tr>
+            </table>
+
+            <a th:href='@{/}'>Вернуться</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

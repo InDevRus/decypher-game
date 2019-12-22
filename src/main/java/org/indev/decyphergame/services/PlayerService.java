@@ -23,9 +23,9 @@ public class PlayerService {
         return playerDAO.findByNickName(nickName);
     }
 
-    public Integer getTotalScore(String nickName, Optional<Date> date)
-    { // Date argument isn't a given. Look inside playerDAO.getTotalScore to see if it's still being debated.
-        return playerDAO.getTotalScore(nickName, date);
+    public Integer getTotalScore(String nickName)
+    {
+        return playerDAO.getTotalScore(nickName);
     }
 
     public List<PlayerScore> getAllScores(Optional<Date> date)

@@ -9,11 +9,7 @@ import java.util.Optional;
 public interface ResultDAO {
     Optional<Result> find(String playerNickName, int questionId);
 
-    List<Result> getByPlayer(String playerNickName, Optional<Date> date);
-    // UNUSED
-
-    List<Result> getAll(Optional<Date> date);
-    // UNUSED
+    List<Result> getByPlayer(String playerNickName);
 
     void persist(Result result);
 }

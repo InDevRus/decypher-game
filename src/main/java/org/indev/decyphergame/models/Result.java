@@ -80,4 +80,8 @@ public class Result {
     public Integer getPointsAmount() {
         return pointsAmount;
     }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 }

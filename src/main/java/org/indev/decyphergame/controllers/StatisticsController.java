@@ -34,19 +34,6 @@ class StatisticsController {
             }
         }
 
-        /*HashMap<String, Integer> scoreByNickName = new HashMap<>();
-        for (Result result :
-                resultService.getAllResults(date)) {
-            String nickName = result.getEncryption().getPlayer().getNickName();
-            scoreByNickName.putIfAbsent(nickName, 0);
-            scoreByNickName.put(nickName, scoreByNickName.get(nickName) + result.getPointsAmount());
-        }
-        List<PlayerScore> scores = player
-                new ArrayList<>();
-        for (Map.Entry<String, Integer> entry :
-                scoreByNickName.entrySet()) {
-            scores.add(new PlayerScore(entry.getKey(), entry.getValue()));
-        }*/
         List<PlayerScore> scores = playerService.getAllScores(date);
         model.addAttribute("scores", scores);
         return "statistics";

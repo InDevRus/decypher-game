@@ -14,9 +14,5 @@ public interface ResultService {
 
     Result giveUp(String playerNickName);
 
-    List<Result> getResultsByPlayer(Player player, Optional<Date> date);
-    // UNUSED
-
-    List<Result> getAllResults(Optional<Date> date);
-    // UNUSED
+    List<Result> getResultsByPlayer(String playerNickName);
 }

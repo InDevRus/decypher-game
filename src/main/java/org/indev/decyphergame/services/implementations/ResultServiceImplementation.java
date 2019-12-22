@@ -47,15 +47,9 @@ class ResultServiceImplementation implements ResultService {
     }
 
     @Override
-    public List<Result> getResultsByPlayer(Player player, Optional<Date> date) {
+    public List<Result> getResultsByPlayer(String playerNickName) {
         // UNUSED
-        return resultDAO.getByPlayer(player.getNickName(), date);
-    }
-
-    @Override
-    public List<Result> getAllResults(Optional<Date> date) {
-        // UNUSED
-        return resultDAO.getAll(date);
+        return resultDAO.getByPlayer(playerNickName);
     }
 
     public Optional<Result> getResult(String playerNickName, int questionId) {

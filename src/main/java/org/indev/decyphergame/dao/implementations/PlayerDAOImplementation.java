@@ -40,8 +40,7 @@ class PlayerDAOImplementation implements PlayerDAO {
     }
 
     @Override
-    public Integer getTotalScore(String nickName, Optional<Date> date) {
-        // TODO DATE, but maybe don't do it and remove from the arguments.
+    public Integer getTotalScore(String nickName) {
         var qResult = QResult.result;
         var qEncryption = QEncryption.encryption;
         var qPlayer = QPlayer.player;
@@ -80,6 +79,7 @@ class PlayerDAOImplementation implements PlayerDAO {
         {
             result.add(new PlayerScore(findByNickName(e.getKey()).get(), e.getValue()));
             // FIXME Don't findByNickname, use a better query. Also, do I have to sort it later?
+            // I use Optional.get() without isPresent() check, because if a player was fetched, the username exists.
         }
         result.sort(Comparator.comparingInt(value -> -value.getScore()));
         return result;

@@ -39,8 +39,7 @@ public class ResultDAOImplementation implements ResultDAO {
     }
 
     @Override
-    public List<Result> getByPlayer(String playerNickName, Optional<Date> date) {
-        // UNUSED TODO DATE, but maybe just remove it
+    public List<Result> getByPlayer(String playerNickName) {
         var qResult = QResult.result;
         var qEncryption = QEncryption.encryption;
         var qPlayer = QPlayer.player;
@@ -49,24 +48,8 @@ public class ResultDAOImplementation implements ResultDAO {
                 .innerJoin(qResult.encryption, qEncryption)
                 .innerJoin(qEncryption.player, qPlayer)
                 .where(qPlayer.nickName.eq(playerNickName));
-        if (date.isPresent()) {
-            found = found.where(Expressions.asDate(qResult.createdAt).eq(date.get()));
-        }
-        return found.fetch();
-    }
-
-    @Override
-    public List<Result> getAll(Optional<Date> date) {
-        // UNUSED TODO DATE, but maybe just remove it
-        var qResult = QResult.result;
-        var qEncryption = QEncryption.encryption;
-
-        var found = queryFactory.selectFrom(qResult)
-                .innerJoin(qResult.encryption, qEncryption);
-        if (date.isPresent()) {
-            found = found.where(Expressions.asDate(qResult.createdAt).eq(date.get()));
-        }
-        return found.fetch();
+        return found.orderBy(qResult.createdAt.desc())
+                .fetch();
     }
 
     @Transactional
