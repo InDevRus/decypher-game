@@ -56,3 +56,7 @@ th:first-child, td:first-child {
     color: #1E2535;
 }
 
+.modal {
+    position: relative;
+    margin: auto;
+}
