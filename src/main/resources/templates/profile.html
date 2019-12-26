@@ -5,6 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Профиль</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/profil.css}">
 </head>
 
 <body>
@@ -34,7 +36,7 @@
                     <th>Дата</th>
                 </tr>
                 <tr th:if="${results.empty}">
-                    <td colspan="3">Нет результатов</td>
+                    <td colspan="6">Нет результатов</td>
                 </tr>
                 <tr th:each="result : ${results}">
                     <td><span th:text="${result.encryption.cypher}">Вопрос</span></td>

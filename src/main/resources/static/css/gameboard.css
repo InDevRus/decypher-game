@@ -1,9 +1,4 @@
-p {
-    text-align: center;
-}
-
-.button-submit {
-    margin: auto;
+.back {
     background-color: rgba(0, 0, 0, 0);
     color: #9ba8b8;
     text-decoration: none;
@@ -11,13 +6,25 @@ p {
     border: 1px solid #9ba8b8;
 }
 
-.button-submit:hover {
+.back:hover {
     border-color: #fff;
     color: #fff;
     background-color: rgba(0, 0, 0, 0);
 }
 
-.button-submit:active {
+.back:active {
     background: #fff;
     color: #1E2535;
+}
+
+p {
+    font-size: 16px;
+    color: #9ba8b8;
+    text-align: center;
+}
+
+.modal {
+    font-size: 16px;
+    color: #9ba8b8;
+    font-family: 'Segoe UI', cursive;
 }

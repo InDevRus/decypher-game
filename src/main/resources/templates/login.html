@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}">
     <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 <body>
@@ -33,8 +34,6 @@
                 <br th:if="${error}">
                 <span th:text="${error}"></span>
             </form>
-
-            <!--    <p><a th:href='@{/register}'>Зарегестрироваться</a></p>-->
             <a th:href='@{/}'>Вернуться</a>
         </div>
     </div>

@@ -1,121 +1,53 @@
-body {
-    background-image: url(https://getbg.net/upload/full/www.GetBg.net_Backgrounds_Line_of_computer_code_background_099068_.jpg);
-    background-repeat: no-repeat;
+.modal-body a {
+    background-color: rgba(0, 0, 0, 0);
+    color: #9ba8b8;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid #9ba8b8;
 }
 
-
-.modal {
-    position: fixed;
-    display: flex;
-    pointer-events: auto;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 0;
-    background: rgba(0,0,0,0.7);
+.modal-body a:hover {
+    border-color: #fff;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0);
 }
 
-.modal_content {
-    position: relative;
-    z-index: 2;
-    display: block;
-    margin: auto;
-    padding: 50px 30px 200px 30px;
+.modal-body a:active {
+    background: #fff;
+    color: #1E2535;
 }
 
-.modal-body{
-    pointer-events: auto;
-}
-
-.modal_content h1{
-    font-family: 'Segoe UI', cursive;
-    font-size: 50px;
-    color: #e7eaef;
-}
 .group {
     position: relative;
-    padding-bottom: 15px;
-    padding-top: 20px;
 }
 
 
 input {
     font-size: 16px;
-    padding: 9px;
+    padding: 10px;
+    margin-top: 30px;
     display: block;
-    width: 340px;
+    width: 240px;
     border: none;
 }
+
 input:focus {
     outline: none;
 }
+
 label {
     color: #999;
-    font-size: 20px;
-    font-family: 'Ubuntu', sans-serif;
     position: absolute;
     pointer-events: none;
-    left: 10px;
     transition: 0.2s ease all;
     -moz-transition: 0.2s ease all;
     -webkit-transition: 0.2s ease all;
-    top: 25px;
+    top: 5px;
+    left: 10px;
 }
 
 input:focus ~ label, input:valid ~ label {
-    top: -5px;
-    /*left: -1px;*/
+    top: -25px;
+    left: 0;
     color: #9ba8b8;
-}
-
-
-.button-submit{
-    font-family: 'Segoe UI', cursive;
-    text-transform: uppercase;
-    position: absolute;
-    left: 35px;
-    color: #fff;
-    text-decoration: none;
-    user-select: none;
-    background: rgb(212,75,56);
-    outline: none;
-    margin: 5px;
-    bottom: 140px;
-
-}
-.button-submit:hover {
-    background: rgb(232,95,76);
-}
-
-.button-submit:active {
-    background: rgb(152,15,0);
-}
-p{
-    font-family: 'Ubuntu', sans-serif;
-    font-size: 20px;
-    color: #9ba8b8;
-}
-
-a {
-    position: absolute;
-    font-family: 'Segoe UI', cursive;
-    font-size: 10px;
-    color: #9ba8b8;
-    padding: 3px 28px;
-    text-decoration: none;
-    text-transform: uppercase;
-    border: 1px solid #9ba8b8;
-    top: 150px;
-    left: 35px;
-}
-
-a:hover {
-    border-color: #fff;
-    color: #fff;
-}
-
-a:active {
-    background: #fff;
-    color: #1E2535;
 }

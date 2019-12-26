@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Статистика</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/statistics.css}">
 </head>
 <body>
 
@@ -12,16 +14,17 @@
             <h1>Статистика</h1>
         </div>
 
-        <form method="get" th:action="@{/statistics}">
-            <label>
-                <input type="date" th:name="date">
-            </label>
-            <label>
-                <input type="submit" value="Статистика по дате">
-            </label>
-        </form>
-
         <div class="modal-body">
+            <form method="get" th:action="@{/statistics}">
+                <label>
+                    Статистика по дате:<br>
+                    <input type="date" th:name="date" class="date-input">
+                </label>
+                <label>
+                    <input type="submit" class="date-button" value="Вывести">
+                </label>
+            </form>
+
             <table>
                 <tr>
                     <th>Игрок</th>

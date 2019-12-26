@@ -4,18 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Игра "Дешифровщик"</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/gameboard.css">
 </head>
 <body>
+<div class="modal">
+    <div class="modal_content">
+        <div class="modal-header">
+            <h1>Игры</h1>
+        </div>
+        <div class="modal-body">
 
-<div>
-    Вас зовут: <span sec:authentication="name"></span>
+            <p>Вас зовут: <span sec:authentication="name"></span></p>
+
+            <div>
+                <a href="/play/atbash">Шифр Атбаш</a>
+                <a href="/play/caesar">Шифр Цезаря</a>
+                <a href="/play/dialPad">Телефонный шифр</a>
+                <a href='/' class="back">Вернуться</a>
+            </div>
+        </div>
+    </div>
 </div>
-
-<div>
-    <a href="/play/atbash">Шифр Атбаш</a>
-    <a href="/play/caesar">Шифр Цезаря</a>
-    <a href="/play/dialPad">Телефонный шифр</a>
-</div>
-
 </body>
 </html>

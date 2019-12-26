@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Игра "Дешифровщик"</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}">
     <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
@@ -31,12 +32,12 @@
             </div>
 
             <div sec:authorize="isAnonymous()">
-                <a href="/register" class="registration">Зарегестрироваться</a>
-                <a href="/login">Войти</a>
+                <a href="/register" class="registration">Зарегистрироваться</a>
+                <a href="/rules">Правила</a>
                 <a href="/statistics">Статистика</a>
+                <a href="/login">Войти</a>
+
             </div>
-
-
         </div>
     </div>
 </div>

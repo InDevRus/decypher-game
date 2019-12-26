@@ -1,12 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Игра "Дешифровщик"</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}">
 </head>
 <body>
-<p>Вопросы закончились!</p>
-
-<a href="/">Вернуться</a>
+<div class="modal">
+    <div class="modal_content">
+        <div class="modal-header">
+            <h1>Ой-ой</h1>
+        </div>
+        <div class="modal-body">
+            <p>Вопросы закончились!</p>
+            <a href="/">Вернуться</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>

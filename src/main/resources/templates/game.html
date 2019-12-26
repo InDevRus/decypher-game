@@ -3,57 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <title>Игра "Дешифровщик"</title>
+
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/game.css}">
 </head>
-
-<style>
-    .cypher {
-        height: 50px;
-        display: flex;
-        flex-direction: row;
-    }
-
-    .cypher > div, .cypher > div > div {
-        margin-right: 5px;
-        width: 20px;
-        height: 20px;
-        text-align: center;
-        line-height: 20px;
-        outline: 1px black solid;
-        position: relative;
-    }
-</style>
-
 <body>
+<div class="modal">
+    <div class="modal_content">
+        <div class="modal-header">
+            <h1>Играем!</h1>
+        </div>
 
-<div th:replace="/partials/cypher :: cypher(encryption=*{encryption})"></div>
+        <div class="modal-body">
+            <div th:replace="/partials/cypher :: cypher(encryption=*{encryption})" class="type-cypher"></div>
 
-<p></p>
+            <form method="post" th:action="@{/result/submit}" th:object="${result}" class="answer-form">
+                <div class="group">
+                    <input id="answer-input" required="required" th:field="*{answer}">
+                    <span class="bar"></span>
+                    <label for="answer-input" class="input-answer">Ответ</label>
+                </div>
 
-<form method="post" th:action="@{/play/hint}" th:if="${encryption.hintPosition == null}">
-    <label>
-        <input type="submit" value="Взять подсказку">
-    </label>
-</form>
+                <label>
+                    <input type="submit" class="submit-answer" value="Ответить"/>
+                </label>
+            </form>
 
-<p></p>
 
-<form method="post" th:action="@{/result/submit}" th:object="${result}">
-    <label>
-        <input th:field="*{answer}">
-    </label>
+            <form method="post" th:action="@{/play/hint}" th:if="${encryption.hintPosition == null}" class="get-hint">
+                <label>
+                    <input class="buttons-submit hint" type="submit" value="Взять подсказку">
+                </label>
+            </form>
 
-    <label>
-        <input type="submit" value="Ответить"/>
-    </label>
-</form>
 
-<p></p>
+            <form method="post" th:action="@{/result/giveUp}" class="go-out">
+                <label>
+                    <input type="submit" class="buttons-submit gone" value="Сдаться">
+                </label>
+            </form>
 
-<form method="post" th:action="@{/result/giveUp}">
-    <label>
-        <input type="submit" value="Сдаться">
-    </label>
-</form>
+            <div th:if="${encryption.cypherType != T(org.indev.decyphergame.models.values.CypherType).DIALPAD}">
+                <table class="alf-table">
+                    <tr>
+                        <th>а</th>
+                        <th>б</th>
+                        <th>в</th>
+                        <th>г</th>
+                        <th>д</th>
+                        <th>е</th>
+                        <th>ё</th>
+                        <th>ж</th>
+                        <th>з</th>
+                        <th>и</th>
+                        <th>й</th>
+                    </tr>
+
+                    <tr>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                        <th>5</th>
+                        <th>6</th>
+                        <th>7</th>
+                        <th>8</th>
+                        <th>9</th>
+                        <th>10</th>
+                        <th>11</th>
+                    </tr>
+
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr>
+                        <th>к</th>
+                        <th>л</th>
+                        <th>м</th>
+                        <th>н</th>
+                        <th>о</th>
+                        <th>п</th>
+                        <th>р</th>
+                        <th>с</th>
+                        <th>т</th>
+                        <th>у</th>
+                        <th>ф</th>
+                    </tr>
+                    <tr>
+                        <th>12</th>
+                        <th>13</th>
+                        <th>14</th>
+                        <th>15</th>
+                        <th>16</th>
+                        <th>17</th>
+                        <th>18</th>
+                        <th>19</th>
+                        <th>20</th>
+                        <th>21</th>
+                        <th>22</th>
+                    </tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr>
+                        <th>х</th>
+                        <th>ц</th>
+                        <th>ч</th>
+                        <th>ш</th>
+                        <th>щ</th>
+                        <th>ъ</th>
+                        <th>ы</th>
+                        <th>ь</th>
+                        <th>э</th>
+                        <th>ю</th>
+                        <th>я</th>
+                    </tr>
+                    <tr>
+                        <th>23</th>
+                        <th>24</th>
+                        <th>25</th>
+                        <th>26</th>
+                        <th>27</th>
+                        <th>28</th>
+                        <th>29</th>
+                        <th>30</th>
+                        <th>31</th>
+                        <th>32</th>
+                        <th>33</th>
+                    </tr>
+                </table>
+            </div>
+
+            <div th:if="${encryption.cypherType == T(org.indev.decyphergame.models.values.CypherType).DIALPAD}">
+                <table>
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>абв</td>
+                        <td>где</td>
+                        <td>ёжзи</td>
+                    </tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                        <td>йклм</td>
+                        <td>ноп</td>
+                        <td>рст</td>
+                    </tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr>
+                        <td>7</td>
+                        <td>8</td>
+                        <td>9</td>
+                    </tr>
+                    <tr>
+                        <td>уфх</td>
+                        <td>цчш</td>
+                        <td>щъыь</td>
+                    </tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr>
+                        <td class="del"></td>
+                        <td>0</td>
+                        <td class="del"></td>
+                    </tr>
+                    <tr>
+                        <th class="del"></th>
+                        <th>эюя</th>
+                        <th class="del"></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--<div th:replace="/partials/cypher :: cypher(encryption=*{encryption})"></div>-->
+
+<!--<p></p>-->
+
 
 </body>
 </html>

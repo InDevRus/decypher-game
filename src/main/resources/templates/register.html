@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Регистрация</title>
     <link rel="stylesheet" th:href="@{/css/register.css}">
+    <link rel="stylesheet" th:href="@{/css/base.css}">
 </head>
 <body>
 
@@ -29,7 +30,7 @@
                     <input id="password-confirmation-input" required="required" th:field="*{passwordConfirmation}"
                            type="password">
                     <span class="bar"></span>
-                    <label for="password-confirmation-input">Повтор пороля</label>
+                    <label for="password-confirmation-input">Повтор пароля</label>
                 </div>
                 <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
 

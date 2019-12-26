@@ -44,11 +44,11 @@ public class ResultDAOImplementation implements ResultDAO {
         var qEncryption = QEncryption.encryption;
         var qPlayer = QPlayer.player;
 
-        var found = queryFactory.selectFrom(qResult)
+        return queryFactory.selectFrom(qResult)
                 .innerJoin(qResult.encryption, qEncryption)
                 .innerJoin(qEncryption.player, qPlayer)
-                .where(qPlayer.nickName.eq(playerNickName));
-        return found.orderBy(qResult.createdAt.desc())
+                .where(qPlayer.nickName.eq(playerNickName))
+                .orderBy(qResult.createdAt.desc())
                 .fetch();
     }
 
