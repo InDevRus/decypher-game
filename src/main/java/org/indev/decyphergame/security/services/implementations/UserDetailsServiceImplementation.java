@@ -1,4 +1,4 @@
-package org.indev.decyphergame.security.services;
+package org.indev.decyphergame.security.services.implementations;
 
 import org.indev.decyphergame.models.Player;
 import org.indev.decyphergame.services.PlayerService;
@@ -17,16 +17,13 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service("userDetailsService")
-public class UserDetailsServiceImpl implements UserDetailsService {
+class UserDetailsServiceImplementation implements UserDetailsService {
     private PlayerService playerService;
-
-    @Autowired
-    public void setPlayerService(PlayerService playerService) { this.playerService = playerService; }
 
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Player> optionalPlayer = playerService.getPlayer(username);
+        Optional<Player> optionalPlayer = playerService.findByNickName(username);
         if (optionalPlayer.isEmpty())
             throw new UsernameNotFoundException(String.format("Username %s not found", username));
         Player player = optionalPlayer.get();
@@ -34,5 +31,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         player.getRoles().forEach(role -> roles.add(new SimpleGrantedAuthority(role.toString())));
 
         return new User(player.getNickName(), player.getPassword(), roles);
+    }
+
+    @Autowired
+    public void setPlayerService(PlayerService playerService) {
+        this.playerService = playerService;
     }
 }

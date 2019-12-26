@@ -5,8 +5,8 @@ public enum ResultValue {
     WRONG_ANSWER("Неверный ответ", "wrong-answer"),
     GIVE_UP("Вы сдались", "gave-up");
 
-    private String message;
-    private String cssClass;
+    private final String message;
+    private final String cssClass;
 
     ResultValue(String message, String cssClass) {
         this.message = message;

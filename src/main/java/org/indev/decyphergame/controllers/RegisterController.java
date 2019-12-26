@@ -1,7 +1,7 @@
 package org.indev.decyphergame.controllers;
 
 import org.indev.decyphergame.models.Player;
-import org.indev.decyphergame.security.services.PlayerService;
+import org.indev.decyphergame.security.services.RegisterService;
 import org.indev.decyphergame.security.services.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,26 +17,9 @@ import javax.validation.Valid;
 
 @Controller
 public class RegisterController {
-    private PlayerService playerService;
+    private RegisterService registerService;
     private Validator validator;
-
-    @Autowired
-    public void setPlayerService(PlayerService playerService) {
-        this.playerService = playerService;
-    }
-
-    @Autowired
-    @Qualifier("playerValidator")
-    public void setValidator(Validator validator) {
-        this.validator = validator;
-    }
-
     private SecurityService securityService;
-
-    @Autowired
-    public void setSecurityService(SecurityService securityService) {
-        this.securityService = securityService;
-    }
 
     @SuppressWarnings("SameReturnValue")
     @GetMapping("/register")
@@ -53,10 +36,25 @@ public class RegisterController {
             return "register";
         }
 
-        playerService.save(player);
-
+        registerService.register(player);
         securityService.autoLogin(player.getNickName(), player.getPasswordConfirmation());
 
         return "redirect:/";
+    }
+
+    @Autowired
+    public void setRegisterService(RegisterService registerService) {
+        this.registerService = registerService;
+    }
+
+    @Autowired
+    @Qualifier("playerValidator")
+    public void setValidator(Validator validator) {
+        this.validator = validator;
+    }
+
+    @Autowired
+    public void setSecurityService(SecurityService securityService) {
+        this.securityService = securityService;
     }
 }

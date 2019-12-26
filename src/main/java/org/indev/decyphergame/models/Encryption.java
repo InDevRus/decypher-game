@@ -93,4 +93,8 @@ public class Encryption {
     public void setResult(Result result) {
         this.result = result;
     }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 }

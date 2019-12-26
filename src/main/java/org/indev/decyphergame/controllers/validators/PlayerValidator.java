@@ -1,8 +1,9 @@
 package org.indev.decyphergame.controllers.validators;
 
 import org.indev.decyphergame.models.Player;
-import org.indev.decyphergame.security.services.PlayerService;
+import org.indev.decyphergame.services.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -11,18 +12,13 @@ import org.springframework.validation.Validator;
 public class PlayerValidator implements Validator {
     private PlayerService playerService;
 
-    @Autowired
-    public void setPlayerService(PlayerService playerService) {
-        this.playerService = playerService;
-    }
-
     @Override
-    public boolean supports(Class<?> clazz) {
+    public boolean supports(@NonNull Class<?> clazz) {
         return Player.class.equals(clazz);
     }
 
     @Override
-    public void validate(Object target, Errors errors) {
+    public void validate(@NonNull Object target, @NonNull Errors errors) {
         var player = (Player) target;
 
         if (!player.getPassword().matches("\\p{Print}{6,20}")) {
@@ -35,5 +31,10 @@ public class PlayerValidator implements Validator {
 
         playerService.findByNickName(player.getNickName())
                 .ifPresent(found -> errors.reject("", "Игрок с таким именем уже существует."));
+    }
+
+    @Autowired
+    public void setPlayerService(PlayerService playerService) {
+        this.playerService = playerService;
     }
 }

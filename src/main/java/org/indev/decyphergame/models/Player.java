@@ -6,7 +6,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -44,10 +43,18 @@ public class Player {
     @ManyToMany
     private Set<Role> roles = new HashSet<>();
 
-    @Transient
-    private Integer score;
-
     public Player() {
+    }
+
+    protected Player(Player other) {
+        this.id = other.id;
+        this.nickName = other.nickName;
+        this.password = other.password;
+        this.passwordConfirmation = other.passwordConfirmation;
+        this.encryptions = other.encryptions;
+        this.createdAt = other.createdAt;
+        this.updatedAt = other.updatedAt;
+        this.roles = other.roles;
     }
 
     public int getId() {

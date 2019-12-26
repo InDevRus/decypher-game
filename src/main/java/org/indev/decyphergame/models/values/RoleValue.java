@@ -1,16 +1,17 @@
 package org.indev.decyphergame.models.values;
 
 public enum RoleValue {
-    USER {
-        @Override
-        public String toString() {
-            return "USER";
-        }
-    },
-    MODERATOR {
-        @Override
-        public String toString() {
-            return "MODERATOR";
-        }
+    USER("USER"),
+    MODERATOR("MODERATOR");
+
+    private final String value;
+
+    RoleValue(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return value;
     }
 }

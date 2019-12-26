@@ -1,14 +1,14 @@
 package org.indev.decyphergame.dao.implementations;
 
 import com.querydsl.core.group.GroupBy;
-import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.indev.decyphergame.dao.PlayerDAO;
 import org.indev.decyphergame.models.Player;
-import org.indev.decyphergame.models.QEncryption;
 import org.indev.decyphergame.models.QPlayer;
 import org.indev.decyphergame.models.QResult;
-import org.indev.decyphergame.models.wrappers.PlayerScore;
+import org.indev.decyphergame.models.projections.PlayerResults;
+import org.indev.decyphergame.models.projections.PlayerScore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +29,7 @@ class PlayerDAOImplementation implements PlayerDAO {
         this.queryFactory = queryFactory;
     }
 
+    @Override
     public Optional<Player> findByNickName(String nickName) {
         var player = QPlayer.player;
 
@@ -40,49 +41,44 @@ class PlayerDAOImplementation implements PlayerDAO {
     }
 
     @Override
-    public Integer getTotalScore(String nickName) {
+    public PlayerResults getWithResults(String nickName) {
         var qResult = QResult.result;
-        var qEncryption = QEncryption.encryption;
         var qPlayer = QPlayer.player;
 
-        return queryFactory.selectFrom(qPlayer)
+        return queryFactory
+                .from(qResult)
+                .innerJoin(qResult.encryption)
+                .innerJoin(qResult.encryption.player, qPlayer)
                 .where(qPlayer.nickName.eq(nickName))
-                .innerJoin(qPlayer.encryptions, qEncryption)
-                .innerJoin(qEncryption.result, qResult)
-                .select(qResult.pointsAmount.sum())
+                .groupBy(qPlayer)
+                .select(Projections.constructor(PlayerResults.class,
+                        qPlayer, GroupBy.list(qResult), qResult.pointsAmount.sum()))
                 .fetchOne();
     }
 
     @Override
-    public List<PlayerScore> getAllScores(Optional<Date> date) {
+    public List<PlayerScore> getAllScores(Date date) {
         var qResult = QResult.result;
-        var qEncryption = QEncryption.encryption;
         var qPlayer = QPlayer.player;
 
-        var preScores = queryFactory.selectFrom(qPlayer)
-                .innerJoin(qPlayer.encryptions, qEncryption)
-                .innerJoin(qEncryption.result, qResult);
+        var query = queryFactory
+                .from(qResult)
+                .innerJoin(qResult.encryption)
+                .innerJoin(qResult.encryption.player, qPlayer);
 
-        if (date.isPresent()) {
-            Calendar calendar = new GregorianCalendar();
-            calendar.setTime(date.get());
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
-            preScores = preScores.where(qResult.createdAt.after(date.get()))
-                .where(qResult.createdAt.before(calendar.getTime()));
+        if (Objects.nonNull(date)) {
+            var nextDay = Calendar.getInstance();
+            nextDay.setTime(date);
+            nextDay.add(Calendar.DATE, 1);
+
+            var criteria = qResult.createdAt.after(date);
+            criteria.and(qResult.createdAt.before(nextDay.getTime()));
+
+            query = query.where(criteria);
         }
 
-        Map<String, Integer> scores = preScores.transform(GroupBy.groupBy(qPlayer.nickName)
-                        .as(GroupBy.sum(qResult.pointsAmount)));
-
-        List<PlayerScore> result = new ArrayList<>();
-        for (Map.Entry<String, Integer> e : scores.entrySet())
-        {
-            result.add(new PlayerScore(findByNickName(e.getKey()).get(), e.getValue()));
-            // FIXME Don't findByNickname, use a better query. Also, do I have to sort it later?
-            // I use Optional.get() without isPresent() check, because if a player was fetched, the username exists.
-        }
-        result.sort(Comparator.comparingInt(value -> -value.getScore()));
-        return result;
+        return query.transform(GroupBy.groupBy(qPlayer).list(Projections
+                .constructor(PlayerScore.class, qPlayer, qResult.pointsAmount.sum())));
     }
 
     @Override

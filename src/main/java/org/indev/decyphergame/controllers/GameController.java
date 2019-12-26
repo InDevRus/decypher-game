@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+@SuppressWarnings("SameReturnValue")
 @Controller
 @RequestMapping("/play")
 class GameController {
@@ -48,6 +49,7 @@ class GameController {
     public String caesar(Model model) {
         return render(model, caesarService);
     }
+
 
     @PostMapping("/hint")
     public String hint() {
