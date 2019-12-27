@@ -1,0 +1,85 @@
+body {
+    background: url(image/background.png) repeat-y #000;
+    font-family: 'Segoe UI', cursive;
+    font-size: 16px;
+}
+
+.modal {
+    position: fixed;
+    display: flex;
+    pointer-events: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.modal_content {
+    position: relative;
+    z-index: 2;
+    display: block;
+    margin: auto;
+}
+
+.modal-body {
+    pointer-events: auto;
+}
+
+h1 {
+    font-size: 40px;
+    color: #e7eaef;
+    text-align: center;
+}
+
+p {
+    font-size: 16px;
+    color: #9ba8b8;
+}
+
+a {
+    background-color: rgb(212, 75, 56);
+    color: #fff;
+    padding: 10px 30px;
+    text-decoration: none;
+    text-transform: uppercase;
+
+    display: block;
+    width: 200px;
+    margin: 10px auto;
+    text-align: center;
+}
+
+a:hover {
+    background: rgb(232, 95, 76);
+}
+
+a:active {
+    background: rgb(152, 15, 0);
+}
+
+.button-submit {
+    font-size: 16px;
+    padding: 10px;
+    margin-top: 30px;
+    display: block;
+    width: 260px;
+    border: none;
+
+    text-transform: uppercase;
+    color: #fff;
+    font-family: 'Segoe UI', cursive;
+    background: rgb(212, 75, 56);
+}
+
+.button-submit:hover {
+    background: rgb(232, 95, 76);
+}
+
+.button-submit:active {
+    background: rgb(152, 15, 0);
+}
+
+span {
+    color: #999;
+}

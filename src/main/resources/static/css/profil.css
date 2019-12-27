@@ -1,10 +1,5 @@
-p {
-    margin: 0 100px;
-}
-
-h1 {
-    margin-top: 15px;
-    margin-bottom: 15px;
+span {
+    color: white;
 }
 
 table {
@@ -14,7 +9,6 @@ table {
     text-align: center;
     margin: 40px auto;
     border-radius: 20px;
-
 }
 
 th, td:first-child {
@@ -25,7 +19,6 @@ th, td:first-child {
 
 th, td {
     border: 1px solid #fff;
-
     color: white;
 }
 
@@ -35,25 +28,7 @@ td {
 
 th:first-child, td:first-child {
     text-align: left;
-}
-
-.modal-body a {
-    background-color: rgba(0, 0, 0, 0);
-    color: #9ba8b8;
-    text-decoration: none;
-    text-transform: uppercase;
-    border: 1px solid #9ba8b8;
-}
-
-.modal-body a:hover {
-    border-color: #fff;
-    color: #fff;
-    background-color: rgba(0, 0, 0, 0);
-}
-
-.modal-body a:active {
-    background: #fff;
-    color: #1E2535;
+    color: white;
 }
 
 .modal {

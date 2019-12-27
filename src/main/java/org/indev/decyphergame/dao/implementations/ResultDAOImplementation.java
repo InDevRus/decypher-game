@@ -35,6 +35,20 @@ class ResultDAOImplementation implements ResultDAO {
         return Optional.ofNullable(found);
     }
 
+    @Override
+    public List<Result> getByPlayer(String playerNickName) {
+        var qResult = QResult.result;
+        var qEncryption = QEncryption.encryption;
+        var qPlayer = QPlayer.player;
+
+        return queryFactory.selectFrom(qResult)
+                .innerJoin(qResult.encryption, qEncryption)
+                .innerJoin(qEncryption.player, qPlayer)
+                .where(qPlayer.nickName.eq(playerNickName))
+                .orderBy(qResult.createdAt.desc())
+                .fetch();
+    }
+
     @Transactional
     @Override
     public void persist(Result result) {

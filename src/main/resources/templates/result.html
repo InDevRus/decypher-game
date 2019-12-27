@@ -5,67 +5,60 @@
 <head>
     <meta charset="UTF-8">
     <title>Игра "Дешифровщик"</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/result.css}">
 </head>
 
-<style>
-    .cypher {
-        height: 50px;
-        display: flex;
-        flex-direction: row;
-    }
-
-    .cypher > div, .cypher > div > div {
-        margin-right: 5px;
-        width: 20px;
-        height: 20px;
-        text-align: center;
-        line-height: 20px;
-        outline: 1px black solid;
-        position: relative;
-    }
-</style>
-
 <body>
-<div th:object="${result}">
-    <p>
-        Вас зовут: <span sec:authentication="name">.</span>
-    </p>
+<div class="modal">
+    <div class="modal_content">
+        <div class="modal-header">
+            <h1>Результаты</h1>
+        </div>
+        <div class="modal-body">
 
-    <div th:replace="/partials/cypher :: cypher(encryption=*{encryption})"></div>
 
-    <p>
-        Вопрос:
-        <br>
-        <span th:text="*{encryption.question.description}"></span>
-        <span th:text="*{encryption.cypher}"></span>
-    </p>
+            <div th:object="${result}">
+                <p>
+                    Вас зовут: <span sec:authentication="name">.</span>
+                </p>
 
-    <p>
-        Правильный ответ:
-        <br>
-        <span th:text="*{encryption.question.word}"></span>
-    </p>
+                <p>
+                    Вопрос:
+                    <br>
+                    <span th:text="*{encryption.question.description}"></span>
+                    <span th:text="*{encryption.cypher}"></span>
+                </p>
 
-    <p th:unless="*{encryption.hintPosition == null}">
-        Ваш ответ:
-        <br>
-        <span th:text="*{answer}"></span>
-    </p>
+                <p>
+                    Правильный ответ:
+                    <br>
+                    <span th:text="*{encryption.question.word}"></span>
+                </p>
 
-    <p>
-        Ваш результат: <span th:class="*{resultValue.cssClass()}" th:text="*{resultValue.message}"></span>
-        <br>
-        <th:block th:if="*{pointsAmount == 0}">
-            Вы не набрали, но и не потеряли очки.
-        </th:block>
-        <th:block th:unless="*{pointsAmount == 0}">
-            Вы <span th:text="*{pointsAmount} > 0 ? 'набрали' : 'потеряли' + ': '"></span>
-            <span th:text="${T(Math).abs(result.pointsAmount)}">
+                <p th:unless="*{encryption.hintPosition == null}">
+                    Ваш ответ:
+                    <br>
+                    <span th:text="*{answer}"></span>
+                </p>
+
+                <p>
+                    Ваш результат: <span th:class="*{resultValue.cssClass()}" th:text="*{resultValue.message}"></span>
+                    <br>
+                    <th:block th:if="*{pointsAmount == 0}">
+                        Вы не набрали, но и не потеряли очки.
+                    </th:block>
+                    <th:block th:unless="*{pointsAmount == 0}">
+                        Вы <span th:text="*{pointsAmount} > 0 ? 'набрали' : 'потеряли' + ': '"></span>
+                        <span th:text="${T(Math).abs(result.pointsAmount)}">
         </span>
-        </th:block>
-    </p>
+                    </th:block>
+                </p>
 
-    <a href="/">Вернуться на главную</a>
+                <a href="/">Вернуться на главную</a>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

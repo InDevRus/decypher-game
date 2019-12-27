@@ -44,7 +44,7 @@ public class DialPad implements Encrypter {
             6, List.of("Р", "С", "Т"),
             7, List.of("У", "Ф", "Х"),
             8, List.of("Ц", "Ч", "Ш"),
-            9, List.of("Щ", "Ы", "Ь"),
+            9, List.of("Щ", "Ъ", "Ы", "Ь"),
             0, List.of("Э", "Ю", "Я")
     );
 

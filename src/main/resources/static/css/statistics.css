@@ -1,0 +1,94 @@
+span {
+    color: white;
+}
+
+label {
+    font-size: 16px;
+    color: #9ba8b8;
+    font-family: 'Segoe UI', cursive;
+}
+
+.date-input {
+    font-size: 16px;
+    padding: 5px;
+    display: inline-block;
+    width: 160px;
+    border: none;
+    position: relative;
+    top: -2px;
+}
+
+.date-button {
+    font-size: 16px;
+    padding: 6px 8px;
+    display: inline-block;
+    border: none;
+    text-transform: uppercase;
+    color: #fff;
+    font-family: 'Segoe UI', cursive;
+    background: rgb(212, 75, 56);
+}
+
+.date-button:hover {
+    background: rgb(232, 95, 76);
+}
+
+.date-button:active {
+    background: rgb(152, 15, 0);
+}
+
+.modal-body a {
+    background-color: rgba(0, 0, 0, 0);
+    color: #9ba8b8;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid #9ba8b8;
+}
+
+.modal-body a:hover {
+    border-color: #fff;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.modal-body a:active {
+    background: #fff;
+    color: #1E2535;
+}
+
+
+table {
+    font-family: 'Segoe UI', cursive;
+    font-size: 16px;
+    border-collapse: collapse;
+    text-align: center;
+    margin: 40px auto;
+    border-radius: 20px;
+
+}
+
+th, td:first-child {
+    background: rgb(232, 95, 76);
+    color: white;
+    padding: 10px 20px;
+}
+
+th, td {
+    border: 1px solid #fff;
+
+    color: white;
+}
+
+td {
+    color: #999;
+}
+
+th:first-child, td:first-child {
+    text-align: left;
+    color: white;
+}
+
+.modal {
+    position: relative;
+    margin: auto;
+}
