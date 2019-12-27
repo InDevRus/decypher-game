@@ -29,8 +29,8 @@ public class Encryption {
     @Column(updatable = false, nullable = false)
     private CypherType cypherType;
 
-    @PositiveOrZero
-    @Max(10)
+    @PositiveOrZero(message = "Позиция подсказки не может быть отрицательной")
+    @Max(value = 10, message = "Позиция подсказки не может быть больше 10")
     @Column
     private Integer hintPosition;
 

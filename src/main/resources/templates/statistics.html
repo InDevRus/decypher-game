@@ -30,11 +30,11 @@
                     <th>Игрок</th>
                     <th>Очки</th>
                 </tr>
-                <tr th:if="${scores.empty}">
+                <tr th:unless="${scores}">
                     <td colspan="2">Нет результатов</td>
                 </tr>
                 <tr th:each="score : ${scores}">
-                    <td><span th:text="${score.player.nickName}">Игрок</span></td>
+                    <td><span th:text="${score.nickName}">Игрок</span></td>
                     <td><span th:text="${score.score}">Очки</span></td>
                 </tr>
             </table>

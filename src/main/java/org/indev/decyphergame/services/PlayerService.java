@@ -1,35 +1,17 @@
 package org.indev.decyphergame.services;
 
-import org.indev.decyphergame.dao.PlayerDAO;
 import org.indev.decyphergame.models.Player;
-import org.indev.decyphergame.models.wrappers.PlayerScore;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.indev.decyphergame.models.projections.PlayerResults;
+import org.indev.decyphergame.models.projections.PlayerScore;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class PlayerService {
-    private PlayerDAO playerDAO;
+public interface PlayerService {
+    Optional<Player> findByNickName(String username);
 
-    @Autowired
-    public void setPlayerDAO(PlayerDAO playerDAO) {
-        this.playerDAO = playerDAO;
-    }
+    PlayerResults getPlayerWithResults(String playerNickName);
 
-    public Optional<Player> getPlayer(String nickName) {
-        return playerDAO.findByNickName(nickName);
-    }
-
-    public Integer getTotalScore(String nickName)
-    {
-        return playerDAO.getTotalScore(nickName);
-    }
-
-    public List<PlayerScore> getAllScores(Optional<Date> date)
-    {
-        return playerDAO.getAllScores(date);
-    }
+    List<PlayerScore> getAllScores(Date date);
 }

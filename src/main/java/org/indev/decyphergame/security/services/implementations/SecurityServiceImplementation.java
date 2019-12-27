@@ -1,8 +1,8 @@
-package org.indev.decyphergame.security.services;
+package org.indev.decyphergame.security.services.implementations;
 
-
-import org.indev.decyphergame.dao.PlayerDAO;
+import org.indev.decyphergame.security.services.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,25 +13,9 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class SecurityServiceImpl implements SecurityService {
+class SecurityServiceImplementation implements SecurityService {
     private AuthenticationManager authenticationManager;
     private UserDetailsService userDetailsService;
-    private PlayerDAO playerDAO;
-
-    @Autowired
-    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
-    }
-
-    @Autowired
-    public void setUserDetailsService(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
-
-    @Autowired
-    public void setPlayerDAO(PlayerDAO playerDAO) {
-        this.playerDAO = playerDAO;
-    }
 
     public Optional<String> getAuthorizedNickName() {
         var nickName = Optional.<String>empty();
@@ -54,5 +38,16 @@ public class SecurityServiceImpl implements SecurityService {
         if (result.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
+    }
+
+    @Autowired
+    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
+    }
+
+    @Autowired
+    @Qualifier("userDetailsService")
+    public void setUserDetailsService(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
     }
 }

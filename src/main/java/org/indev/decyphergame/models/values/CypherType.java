@@ -1,22 +1,17 @@
 package org.indev.decyphergame.models.values;
 
 public enum CypherType {
-    ATBASH {
-        @Override
-        public String getValue() {
-            return "Шифр Атбаш";
-        }
-    }, CAESAR {
-        @Override
-        public String getValue() {
-            return "Шифр Цезаря";
-        }
-    }, DIALPAD {
-        @Override
-        public String getValue() {
-            return "Телефонный шифр";
-        }
-    };
+    ATBASH("Шифр Атбаш"),
+    CAESAR("Шифр Цезаря"),
+    DIALPAD("Телефонный шифр");
 
-    public abstract String getValue();
+    private final String value;
+
+    CypherType(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

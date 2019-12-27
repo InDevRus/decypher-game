@@ -1,6 +1,5 @@
 package org.indev.decyphergame.dao.implementations;
 
-import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.indev.decyphergame.dao.ResultDAO;
 import org.indev.decyphergame.models.*;
@@ -10,12 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class ResultDAOImplementation implements ResultDAO {
+class ResultDAOImplementation implements ResultDAO {
     @PersistenceContext
     private EntityManager entityManager;
     private JPAQueryFactory queryFactory;

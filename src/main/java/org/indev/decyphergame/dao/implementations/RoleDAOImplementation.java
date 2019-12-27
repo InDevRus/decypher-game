@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Objects;
 
 @Repository
-public class RoleDAOImplementation implements RoleDAO {
+class RoleDAOImplementation implements RoleDAO {
     private JPAQueryFactory queryFactory;
 
     @Autowired
